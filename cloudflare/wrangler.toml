@@ -2,6 +2,14 @@ name = "ai-engineering-study-hub"
 compatibility_date = "2026-07-13"
 pages_build_output_dir = "site"
 
+[observability]
+enabled = true
+
 [[r2_buckets]]
 binding = "LIBRARY"
 bucket_name = "ai-engineering-library"
+
+[[d1_databases]]
+binding = "PROGRESS_DB"
+database_name = "ai-engineering-study-hub-progress"
+database_id = "b885c6d6-4c7d-4ca9-b358-81847de7ddf2"

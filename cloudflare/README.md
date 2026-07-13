@@ -2,7 +2,8 @@
 
 This directory deploys the Study Hub UI to Cloudflare Pages and serves the local
 policy-audited PDFs from a private R2 bucket. The repository never contains the PDF
-corpus. The Pages Worker uses HTTP Basic Authentication before serving any route.
+corpus. The Pages Worker uses HTTP Basic Authentication before serving any route and
+stores private reading history in D1.
 
 Production URL: https://ai-engineering-study-hub.pages.dev
 
@@ -24,6 +25,8 @@ It deliberately omits workspace notes from the employer service repository.
 
 ```bash
 npx wrangler r2 bucket create ai-engineering-library
+npx wrangler d1 create ai-engineering-study-hub-progress
+npx wrangler d1 execute ai-engineering-study-hub-progress --remote --file cloudflare/schema.sql
 npx wrangler pages project create ai-engineering-study-hub --production-branch main
 npx wrangler pages secret put AUTH_USER --project-name ai-engineering-study-hub
 npx wrangler pages secret put AUTH_PASSWORD --project-name ai-engineering-study-hub
@@ -45,5 +48,6 @@ npx wrangler pages deploy cloudflare/site \
   --commit-message "Deploy private AI systems Study Hub"
 ```
 
-The Worker expects the R2 binding named `LIBRARY`, configured in `wrangler.toml` or in
-the Pages project settings. Keep the R2 bucket private; do not enable a public bucket.
+The Worker expects the R2 binding named `LIBRARY` and D1 binding named `PROGRESS_DB`,
+configured in `wrangler.toml`. Keep the R2 bucket private; do not enable a public
+bucket. D1 stores only the single authenticated user's reading and project progress.

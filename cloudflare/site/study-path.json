@@ -8,6 +8,15 @@
       "goal": "Make every context source, owner, permission, freshness rule, and token cost visible.",
       "time": "6–8 hours",
       "deliverable": "Context map plus 30–50 golden conversations covering long threads, stale facts, conflicts, injection, and permissions.",
+      "project": {
+        "title": "Context Observatory",
+        "summary": "Build a small agent gateway that records every context source, token cost, freshness decision, and permission check for each response.",
+        "acceptance": [
+          "Run 30–50 golden conversations",
+          "Produce a per-turn context ledger",
+          "Write a failure report for stale, conflicting, and unauthorized context"
+        ]
+      },
       "resources": [
         {
           "label": "Job-aligned track",
@@ -32,6 +41,15 @@
       "goal": "Understand state, threads, checkpoints, interrupts, replay, and safe graph resumption.",
       "time": "6–10 hours",
       "deliverable": "Restart/resume tests at graph boundaries and a state-schema versioning note.",
+      "project": {
+        "title": "Replay-Safe Approval Agent",
+        "summary": "Implement a LangGraph workflow that pauses for approval, survives a process restart, and safely resumes from checkpoints.",
+        "acceptance": [
+          "Restart successfully at every checkpoint",
+          "Test one state-schema migration",
+          "Demonstrate interrupt, approval, and replay"
+        ]
+      },
       "resources": [
         {
           "label": "LangGraph persistence docs",
@@ -56,6 +74,15 @@
       "goal": "Separate model decisions, runtime context, domain writes, approvals, and idempotency keys.",
       "time": "6–10 hours",
       "deliverable": "Effect ledger and tests proving a replay cannot duplicate a user-visible write.",
+      "project": {
+        "title": "Effect Ledger",
+        "summary": "Create a tool-execution boundary that records proposed effects, approvals, idempotency keys, and final outcomes.",
+        "acceptance": [
+          "Replay causes no duplicate writes",
+          "Sensitive actions require explicit approval",
+          "Every effect has an auditable lifecycle"
+        ]
+      },
       "resources": [
         {
           "label": "OpenAI agents guide",
@@ -85,6 +112,15 @@
       "goal": "Make traces, graders, cost, latency, and regressions part of the development loop.",
       "time": "6–8 hours",
       "deliverable": "Trace schema, context budget ledger, task graders, and a release threshold.",
+      "project": {
+        "title": "Agent Evaluation Gate",
+        "summary": "Build a repeatable evaluation harness that scores task success, safety, latency, and token cost before a release.",
+        "acceptance": [
+          "Version a representative golden set",
+          "Implement deterministic and model-based graders",
+          "Fail CI when a release threshold regresses"
+        ]
+      },
       "resources": [
         {
           "label": "LLM evals FAQ",
@@ -109,6 +145,15 @@
       "goal": "Learn the concepts that transfer across LangGraph, LangChain, ADK, Pydantic AI, and OpenAI Agents.",
       "time": "8–12 hours",
       "deliverable": "One small approval workflow implemented in two runtimes and compared by measured trade-offs.",
+      "project": {
+        "title": "Framework Bake-Off",
+        "summary": "Build the same approval workflow in LangGraph and one second framework, then compare behavior instead of marketing claims.",
+        "acceptance": [
+          "Use an identical task and tool contract",
+          "Compare traces, recovery, testing, and ergonomics",
+          "Publish an architecture decision record"
+        ]
+      },
       "resources": [
         {
           "label": "Google ADK docs",
@@ -138,6 +183,15 @@
       "goal": "Understand partitions, consumer groups, offsets, retries, DLQs, replay, lag, and backpressure.",
       "time": "8–12 hours",
       "deliverable": "Crash matrix proving the intended delivery semantics for one consumer workflow.",
+      "project": {
+        "title": "Kafka Failure Lab",
+        "summary": "Build an event consumer and deliberately crash it before and after processing and offset commits.",
+        "acceptance": [
+          "Demonstrate retries, DLQ, and replay",
+          "Measure lag and backpressure",
+          "Document the observed delivery semantics"
+        ]
+      },
       "resources": [
         {
           "label": "Kafka paper",
@@ -167,6 +221,15 @@
       "goal": "Use transactions, constraints, outbox/inbox patterns, leases, fencing, and cache invalidation deliberately.",
       "time": "8–12 hours",
       "deliverable": "Transactional deduplication plus Redis lock/lease failure tests.",
+      "project": {
+        "title": "Transactional Outbox Service",
+        "summary": "Create a Postgres-backed command service with an atomic outbox, idempotent consumer, and Redis lease protection.",
+        "acceptance": [
+          "Persist domain change and event atomically",
+          "Deduplicate repeated deliveries",
+          "Test an expired lease with a fencing token"
+        ]
+      },
       "resources": [
         {
           "label": "Dynamo",
@@ -191,6 +254,15 @@
       "goal": "Make long-lived workflows recoverable across process death, retries, deploys, and timeouts.",
       "time": "8–12 hours",
       "deliverable": "One durable workflow with activity idempotence, retry policy, timeout policy, and recovery demo.",
+      "project": {
+        "title": "Durable Research Workflow",
+        "summary": "Implement a multi-step Temporal workflow that gathers sources, waits for review, and publishes a result after recovery.",
+        "acceptance": [
+          "Make every activity idempotent",
+          "Configure retries and timeouts deliberately",
+          "Kill workers mid-run and prove recovery"
+        ]
+      },
       "resources": [
         {
           "label": "Temporal durable execution guide",
@@ -215,6 +287,15 @@
       "goal": "Separate exposure, outcome, negative feedback, delayed labels, and point-in-time features.",
       "time": "6–10 hours",
       "deliverable": "Exposure/outcome schema, leakage tests, retention rules, and a reproducible dataset.",
+      "project": {
+        "title": "Recommendation Event Contract",
+        "summary": "Design and generate a small event dataset that correctly links impressions, choices, delayed outcomes, and point-in-time features.",
+        "acceptance": [
+          "Add an automated leakage test",
+          "Represent delayed and negative feedback",
+          "Rebuild the same training snapshot reproducibly"
+        ]
+      },
       "resources": [
         {
           "label": "Recommender book audit",
@@ -239,6 +320,15 @@
       "goal": "Build multiple candidate sources and measure per-source recall, freshness, and latency.",
       "time": "8–12 hours",
       "deliverable": "Popularity/rules plus vector or two-tower retrieval baseline with recall@k.",
+      "project": {
+        "title": "Multi-Source Candidate Service",
+        "summary": "Serve candidates from popularity, rules, and embeddings or a two-tower model behind one measurable interface.",
+        "acceptance": [
+          "Report recall@k by candidate source",
+          "Measure latency and freshness",
+          "Provide a fallback when a source is unavailable"
+        ]
+      },
       "resources": [
         {
           "label": "YouTube deep recommendations",
@@ -263,6 +353,15 @@
       "goal": "Separate learned relevance from diversity, freshness, safety, policy, and user controls.",
       "time": "8–12 hours",
       "deliverable": "Ranker plus explicit policy reranker with offline slices and latency budget.",
+      "project": {
+        "title": "Policy-Aware Reranker",
+        "summary": "Train or simulate a relevance ranker, then apply explicit diversity, freshness, safety, and user-control policies.",
+        "acceptance": [
+          "Evaluate important user and item slices",
+          "Keep policies separate from learned relevance",
+          "Meet a stated serving latency budget"
+        ]
+      },
       "resources": [
         {
           "label": "Wide & Deep",
@@ -287,6 +386,15 @@
       "goal": "Understand non-stationary signals, embedding updates, delayed feedback, and index refresh.",
       "time": "8–12 hours",
       "deliverable": "Freshness experiment with feature/index versioning and backfill behavior.",
+      "project": {
+        "title": "Freshness Pipeline",
+        "summary": "Build a streaming update path for features and embeddings, with explicit versions and a safe backfill path.",
+        "acceptance": [
+          "Version features, embeddings, and indexes",
+          "Run a historical backfill safely",
+          "Measure the quality impact of fresher signals"
+        ]
+      },
       "resources": [
         {
           "label": "Monolith",
@@ -311,6 +419,15 @@
       "goal": "Understand when generative retrieval is useful and when a two-stage baseline remains better.",
       "time": "6–10 hours",
       "deliverable": "Comparison note: ANN/two-tower baseline versus semantic-ID or sequential generative retrieval.",
+      "project": {
+        "title": "Generative Retrieval Benchmark",
+        "summary": "Compare a two-tower baseline with semantic-ID or sequential generative retrieval on one fixed dataset.",
+        "acceptance": [
+          "Keep the data split and metrics fixed",
+          "Compare quality, latency, and cost",
+          "Write a decision memo explaining where each approach wins"
+        ]
+      },
       "resources": [
         {
           "label": "TIGER generative retrieval",
@@ -330,6 +447,15 @@
       "goal": "Practice dependency failure, throttling, stale reads, duplicate events, partial writes, and shutdown.",
       "time": "8–12 hours",
       "deliverable": "Fault-injection report with SLO impact, rollback, reconciliation, and runbook updates.",
+      "project": {
+        "title": "Production Chaos Drill",
+        "summary": "Inject latency, dependency errors, stale reads, duplicate events, and partial writes into a small distributed service.",
+        "acceptance": [
+          "Measure the impact against an SLO",
+          "Demonstrate rollback and reconciliation",
+          "Turn every finding into a runbook action"
+        ]
+      },
       "resources": [
         {
           "label": "Distributed systems book access",
@@ -354,6 +480,15 @@
       "goal": "Connect context-aware agents, reliable events, retrieval, recommendation candidates, traces, and evals.",
       "time": "10–14 hours",
       "deliverable": "One end-to-end slice with golden tests, traces, cost/latency dashboard, and safe rollout plan.",
+      "project": {
+        "title": "Integrated AI Decision System",
+        "summary": "Combine an evaluated context-aware agent, event pipeline, retrieval layer, and recommendation candidates into one production slice.",
+        "acceptance": [
+          "Capture end-to-end traces",
+          "Pass golden and failure-path tests",
+          "Expose cost, latency, quality, and rollout controls"
+        ]
+      },
       "resources": [
         {
           "label": "Job-aligned track",
@@ -378,6 +513,15 @@
       "goal": "Turn the work into evidence of technical leadership and system ownership.",
       "time": "8–12 hours",
       "deliverable": "Design doc, threat model, capacity model, SLOs, rollout plan, incident drill, and retrospective.",
+      "project": {
+        "title": "Staff-Level Architecture Package",
+        "summary": "Package the integrated system as a portfolio-quality architecture review that demonstrates judgment, ownership, and operational depth.",
+        "acceptance": [
+          "Publish the code and design artifacts in a personal repository",
+          "Present trade-offs, capacity, security, SLOs, and rollout",
+          "Include an incident exercise and retrospective"
+        ]
+      },
       "resources": [
         {
           "label": "Career guide",

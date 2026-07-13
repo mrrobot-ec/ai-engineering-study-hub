@@ -39,7 +39,7 @@ def main() -> None:
     # hosted build too, while retaining root copies for direct asset inspection.
     hosted_static = OUT / "static"
     hosted_static.mkdir(exist_ok=True)
-    for name in ("app.js", "styles.css"):
+    for name in ("app.js", "styles.css", "marked.umd.js", "marked.LICENSE"):
         shutil.copy2(STATIC / name, hosted_static / name)
 
     items = module.build_library_index()
