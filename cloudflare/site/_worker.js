@@ -1,4 +1,22 @@
 const ALLOWED_PREFIXES = ["books/", "guides/", "papers/"];
+const STATIC_PATHS = new Set([
+  "/",
+  "/index.html",
+  "/static/app.js",
+  "/static/styles.css",
+  "/library-index.json",
+  "/study-path.json",
+]);
+const NOTE_NAMES = new Set([
+  "README.md",
+  "JOB-ALIGNED-LEARNING-PATH.md",
+  "ROADMAP.md",
+  "CAREER-GUIDE-DRAFT.md",
+  "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md",
+  "DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md",
+  "AI-ENGINEERING-BOOK-ACCESS.md",
+  "SOURCE-POLICY.md",
+]);
 
 function unauthorized() {
   return new Response("Authentication required", {
@@ -83,9 +101,12 @@ export default {
     if (url.pathname === "/api/study-path") return serveAsset("/study-path.json", request, env);
     if (url.pathname.startsWith("/notes/")) {
       const name = url.pathname.slice("/notes/".length);
-      if (name.includes("..") || name.includes("/")) return new Response("Not found", { status: 404 });
+      if (name.includes("..") || name.includes("/") || !NOTE_NAMES.has(name)) {
+        return new Response("Not found", { status: 404 });
+      }
       return serveAsset(`/notes/${name}`, request, env);
     }
+    if (!STATIC_PATHS.has(url.pathname)) return new Response("Not found", { status: 404 });
     return serveAsset(url.pathname, request, env);
   },
 };

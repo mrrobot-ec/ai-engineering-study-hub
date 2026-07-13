@@ -35,6 +35,13 @@ def main() -> None:
         else:
             shutil.copy2(path, destination)
 
+    # The local server mounts assets under /static/. Keep that URL contract in the
+    # hosted build too, while retaining root copies for direct asset inspection.
+    hosted_static = OUT / "static"
+    hosted_static.mkdir(exist_ok=True)
+    for name in ("app.js", "styles.css"):
+        shutil.copy2(STATIC / name, hosted_static / name)
+
     items = module.build_library_index()
     (OUT / "library-index.json").write_text(
         json.dumps({"items": items}, ensure_ascii=False, indent=2) + "\n",
