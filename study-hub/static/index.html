@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Systems Study Hub</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-mark">AI</div>
+      <div>
+        <div class="brand-title">AI Systems Study Hub</div>
+        <div class="brand-subtitle">Context · Agents · Retrieval · Distributed Systems</div>
+      </div>
+      <div class="topbar-spacer"></div>
+      <button class="ghost-button" id="reset-progress" title="Clear local progress">Reset progress</button>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <button class="nav-button active" data-view="dashboard-view">⌂ <span>Dashboard</span></button>
+        <button class="nav-button" data-view="path-view">◎ <span>Learning path</span></button>
+        <button class="nav-button" data-view="library-view">▤ <span>Library</span></button>
+        <div class="sidebar-rule"></div>
+        <div class="sidebar-label">Your loop</div>
+        <div class="loop-step"><span>01</span> Read one mechanism</div>
+        <div class="loop-step"><span>02</span> Build the smallest version</div>
+        <div class="loop-step"><span>03</span> Break and measure it</div>
+        <div class="loop-step"><span>04</span> Write the trade-off</div>
+        <div class="sidebar-footer">Progress is stored locally in this browser.</div>
+      </aside>
+
+      <main class="main-content">
+        <section class="view" id="dashboard-view">
+          <div class="hero-card">
+            <div>
+              <div class="eyebrow">THE HIGH-RETURN PATH</div>
+              <h1>Build systems you can explain under failure.</h1>
+              <p>Use the path to turn the library into tested capabilities. Read less, build more, and keep a measurement attached to every idea.</p>
+              <button class="primary-button" id="resume-button">Resume the path <span>→</span></button>
+            </div>
+            <div class="hero-orbit" aria-hidden="true">
+              <div class="orbit orbit-one"></div>
+              <div class="orbit orbit-two"></div>
+              <div class="orbit-core">STATE</div>
+            </div>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-label">PDFs indexed</div><div class="metric-value" id="total-pdfs">—</div><div class="metric-note">books, guides, papers</div></div>
+            <div class="metric-card"><div class="metric-label">Marked complete</div><div class="metric-value" id="read-count">—</div><div class="metric-note" id="read-percent">Start with one</div></div>
+            <div class="metric-card"><div class="metric-label">Current week</div><div class="metric-value" id="current-week">1</div><div class="metric-note" id="current-week-title">Context inventory</div></div>
+          </div>
+
+          <div class="section-heading"><div><div class="eyebrow">NEXT MOVE</div><h2 id="next-week-heading">Week 1 · Context inventory and evaluation</h2></div><button class="text-button" data-view-target="path-view">See all weeks →</button></div>
+          <div class="next-card" id="next-week-card"></div>
+
+          <div class="section-heading"><div><div class="eyebrow">THE RULE</div><h2>Collect decisions, not notes.</h2></div></div>
+          <div class="rule-grid">
+            <div><span class="rule-number">01</span><h3>Question</h3><p>Choose one failure or design decision from your current work.</p></div>
+            <div><span class="rule-number">02</span><h3>Mechanism</h3><p>Read only enough to explain the mechanism and its assumptions.</p></div>
+            <div><span class="rule-number">03</span><h3>Evidence</h3><p>Implement, inject failure, measure, and write the trade-off.</p></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="path-view">
+          <div class="page-heading"><div class="eyebrow">16 WEEKS · 6–14 HOURS/WEEK</div><h1>The build-first learning path</h1><p>Each week has a deliverable. Open a resource, mark it complete, then return to the system you are building.</p></div>
+          <div class="path-progress"><div class="progress-track"><div class="progress-fill" id="path-progress-fill"></div></div><span id="path-progress-label">0 / 16 weeks</span></div>
+          <div id="week-list" class="week-list"></div>
+        </section>
+
+        <section class="view hidden" id="library-view">
+          <div class="page-heading library-heading"><div><div class="eyebrow">108 CURATED PDFS</div><h1>Read from one place</h1><p>Search the local collection, then open a PDF in the reader pane. Files are served in place; the library is not duplicated.</p></div><div class="library-shortcut"><span>⌘ K</span> search</div></div>
+          <div class="library-toolbar"><label class="search-box"><span>⌕</span><input id="library-search" type="search" placeholder="Search title, filename, or category…" autocomplete="off" /></label><select id="category-filter"><option value="all">All categories</option></select><select id="sort-filter"><option value="title">Sort: title</option><option value="pages">Sort: pages</option><option value="year">Sort: year</option></select></div>
+          <div class="library-layout"><div id="resource-list" class="resource-list"><div class="loading">Indexing the library…</div></div><div class="reader-panel"><div class="reader-toolbar"><div><div class="reader-kicker">READER</div><div class="reader-title" id="reader-title">Choose a resource</div></div><div class="reader-actions"><button class="ghost-button" id="mark-complete" disabled>Mark complete</button><button class="ghost-button" id="open-new-tab" disabled>Open tab ↗</button></div></div><div class="reader-body" id="reader-body"><div class="reader-empty"><div class="reader-icon">◫</div><h2>Your focused reading desk</h2><p>Pick a PDF, note, or week resource. Your browser will render the original file without creating another copy.</p></div></div></div></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

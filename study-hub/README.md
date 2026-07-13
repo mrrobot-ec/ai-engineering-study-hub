@@ -1,0 +1,47 @@
+# AI Systems Study Hub
+
+This is a local, dependency-free study dashboard for the library. It keeps the PDFs in
+their existing directories, indexes them on startup, and lets the browser render them
+inside a reader pane. Progress is stored in browser `localStorage`; no study data is
+uploaded anywhere.
+
+## Start it
+
+```bash
+cd ~/Documents/ai-engineering-library
+python3 study-hub/server.py
+```
+
+Open http://127.0.0.1:8765. Stop it with `Ctrl-C`.
+
+The server supports byte ranges so the browser can seek inside large PDFs without
+copying them into a generated site. The workspace-note links assume the library and
+`series-agent-service` remain sibling directories under `~/Documents`.
+
+## How to use it
+
+1. Open **Learning path** and choose the current week.
+2. Read only the resource needed for the week's question.
+3. Build the smallest version in the service or a scratch project.
+4. Inject a failure and measure the result.
+5. Mark the resource and week complete only after writing the trade-off.
+
+Use `Cmd/Ctrl-K` to jump to library search. The **Library** view searches the 108
+curated PDFs by title, filename, and category. **Open tab** is useful for keeping a
+paper and your code side by side.
+
+## Why this is a web app instead of only MkDocs
+
+MkDocs is excellent for the Markdown curriculum and static navigation, and its built-in
+Material search works offline. It is less suitable as the primary reader for this
+collection because a normal MkDocs build copies non-Markdown files into its output. The
+Study Hub serves the existing 789 MiB of PDFs in place and adds progress, filtering, and
+an embedded reader. If the notes later need to be published, the Markdown files can be
+placed in a separate MkDocs site without changing this reader.
+
+## Safe local scope
+
+The server exposes only PDFs under `books/`, `guides/`, and `papers/`, plus an explicit
+allowlist of study notes and two workspace design documents. It does not expose the
+framework clones, credentials, databases, or arbitrary filesystem paths.
+

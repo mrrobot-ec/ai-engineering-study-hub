@@ -1,0 +1,1084 @@
+{
+  "items": [
+    {
+      "id": "books/2026-agentic-software-engineering.pdf",
+      "path": "books/2026-agentic-software-engineering.pdf",
+      "title": "Agentic Software Engineering",
+      "category": "Books",
+      "section": "books",
+      "pages": 417,
+      "bytes": 2542224,
+      "year": "2026"
+    },
+    {
+      "id": "books/2026-hitchhikers-guide-agentic-ai.pdf",
+      "path": "books/2026-hitchhikers-guide-agentic-ai.pdf",
+      "title": "The Hitchhiker's Guide to Agentic AI: From Foundations to Systems",
+      "category": "Books",
+      "section": "books",
+      "pages": 603,
+      "bytes": 9255598,
+      "year": "2026"
+    },
+    {
+      "id": "books/2026-machine-learning-systems-vol1.pdf",
+      "path": "books/2026-machine-learning-systems-vol1.pdf",
+      "title": "Introduction to Machine Learning Systems",
+      "category": "Books",
+      "section": "books",
+      "pages": 1034,
+      "bytes": 12789926,
+      "year": "2026"
+    },
+    {
+      "id": "books/2026-machine-learning-systems-vol2.pdf",
+      "path": "books/2026-machine-learning-systems-vol2.pdf",
+      "title": "Machine Learning Systems at Scale",
+      "category": "Books",
+      "section": "books",
+      "pages": 1170,
+      "bytes": 18733188,
+      "year": "2026"
+    },
+    {
+      "id": "books/automl-methods-systems-challenges.pdf",
+      "path": "books/automl-methods-systems-challenges.pdf",
+      "title": "Automl Methods Systems Challenges",
+      "category": "Books",
+      "section": "books",
+      "pages": 222,
+      "bytes": 6857643,
+      "year": ""
+    },
+    {
+      "id": "books/dive-into-deep-learning-d2l.pdf",
+      "path": "books/dive-into-deep-learning-d2l.pdf",
+      "title": "Dive Into Deep Learning D2L",
+      "category": "Books",
+      "section": "books",
+      "pages": 1151,
+      "bytes": 44685994,
+      "year": ""
+    },
+    {
+      "id": "books/fairness-and-machine-learning.pdf",
+      "path": "books/fairness-and-machine-learning.pdf",
+      "title": "Fairness and Machine Learning",
+      "category": "Books",
+      "section": "books",
+      "pages": 294,
+      "bytes": 2220375,
+      "year": ""
+    },
+    {
+      "id": "books/foundations-of-large-language-models.pdf",
+      "path": "books/foundations-of-large-language-models.pdf",
+      "title": "Foundations of Large Language Models",
+      "category": "Books",
+      "section": "books",
+      "pages": 277,
+      "bytes": 2719972,
+      "year": ""
+    },
+    {
+      "id": "books/introduction-to-information-retrieval.pdf",
+      "path": "books/introduction-to-information-retrieval.pdf",
+      "title": "Introduction to Information Retrieval",
+      "category": "Books",
+      "section": "books",
+      "pages": 581,
+      "bytes": 6903344,
+      "year": ""
+    },
+    {
+      "id": "books/machine-learning-yearning.pdf",
+      "path": "books/machine-learning-yearning.pdf",
+      "title": "andrew-ng-machine-learning-yearning",
+      "category": "Books",
+      "section": "books",
+      "pages": 118,
+      "bytes": 5705059,
+      "year": ""
+    },
+    {
+      "id": "books/mathematics-for-machine-learning.pdf",
+      "path": "books/mathematics-for-machine-learning.pdf",
+      "title": "Mathematics for Machine Learning",
+      "category": "Books",
+      "section": "books",
+      "pages": 417,
+      "bytes": 17565898,
+      "year": ""
+    },
+    {
+      "id": "books/patterns-predictions-actions.pdf",
+      "path": "books/patterns-predictions-actions.pdf",
+      "title": "Patterns, Predictions, and Actions",
+      "category": "Books",
+      "section": "books",
+      "pages": 309,
+      "bytes": 2002212,
+      "year": ""
+    },
+    {
+      "id": "books/probabilistic-machine-learning-advanced-topics.pdf",
+      "path": "books/probabilistic-machine-learning-advanced-topics.pdf",
+      "title": "Probabilistic Machine Learning Advanced Topics",
+      "category": "Books",
+      "section": "books",
+      "pages": 1370,
+      "bytes": 151421194,
+      "year": ""
+    },
+    {
+      "id": "books/probabilistic-machine-learning-introduction.pdf",
+      "path": "books/probabilistic-machine-learning-introduction.pdf",
+      "title": "Probabilistic Machine Learning Introduction",
+      "category": "Books",
+      "section": "books",
+      "pages": 860,
+      "bytes": 92323940,
+      "year": ""
+    },
+    {
+      "id": "books/reinforcement-learning-sutton-barto.pdf",
+      "path": "books/reinforcement-learning-sutton-barto.pdf",
+      "title": "Reinforcement Learning Sutton Barto",
+      "category": "Books",
+      "section": "books",
+      "pages": 548,
+      "bytes": 73129769,
+      "year": ""
+    },
+    {
+      "id": "books/rlhf-book-nathan-lambert.pdf",
+      "path": "books/rlhf-book-nathan-lambert.pdf",
+      "title": "Reinforcement Learning from Human Feedback",
+      "category": "Books",
+      "section": "books",
+      "pages": 238,
+      "bytes": 11171273,
+      "year": ""
+    },
+    {
+      "id": "books/speech-and-language-processing-slp3-draft.pdf",
+      "path": "books/speech-and-language-processing-slp3-draft.pdf",
+      "title": "Speech And Language Processing Slp3 Draft",
+      "category": "Books",
+      "section": "books",
+      "pages": 626,
+      "bytes": 26357909,
+      "year": ""
+    },
+    {
+      "id": "books/the-little-book-of-deep-learning-fleuret.pdf",
+      "path": "books/the-little-book-of-deep-learning-fleuret.pdf",
+      "title": "The Little Book of Deep Learning",
+      "category": "Books",
+      "section": "books",
+      "pages": 189,
+      "bytes": 4747258,
+      "year": ""
+    },
+    {
+      "id": "books/understanding-deep-learning-prince.pdf",
+      "path": "books/understanding-deep-learning-prince.pdf",
+      "title": "Understanding Deep Learning Prince",
+      "category": "Books",
+      "section": "books",
+      "pages": 541,
+      "bytes": 22344992,
+      "year": ""
+    },
+    {
+      "id": "guides/anthropic-2026-agentic-coding-trends.pdf",
+      "path": "guides/anthropic-2026-agentic-coding-trends.pdf",
+      "title": "Anthropic Agentic Coding Trends",
+      "category": "Guides",
+      "section": "guides",
+      "pages": 18,
+      "bytes": 854549,
+      "year": "2026"
+    },
+    {
+      "id": "guides/hamel-llm-evals-faq.pdf",
+      "path": "guides/hamel-llm-evals-faq.pdf",
+      "title": "LLM Evals: Everything You Need to Know",
+      "category": "Guides",
+      "section": "guides",
+      "pages": 38,
+      "bytes": 3178203,
+      "year": ""
+    },
+    {
+      "id": "guides/openai-a-practical-guide-to-building-agents.pdf",
+      "path": "guides/openai-a-practical-guide-to-building-agents.pdf",
+      "title": "Openai A Practical Guide To Building Agents",
+      "category": "Guides",
+      "section": "guides",
+      "pages": 34,
+      "bytes": 7335065,
+      "year": ""
+    },
+    {
+      "id": "guides/production/2021-google-practitioners-guide-to-mlops.pdf",
+      "path": "guides/production/2021-google-practitioners-guide-to-mlops.pdf",
+      "title": "Google Practitioners Guide To Mlops",
+      "category": "Guides",
+      "section": "guides",
+      "pages": 37,
+      "bytes": 8371235,
+      "year": "2021"
+    },
+    {
+      "id": "papers/agents/2022-react-reasoning-and-acting.pdf",
+      "path": "papers/agents/2022-react-reasoning-and-acting.pdf",
+      "title": "React Reasoning And Acting",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 33,
+      "bytes": 633805,
+      "year": "2022"
+    },
+    {
+      "id": "papers/agents/2023-autogen-multi-agent.pdf",
+      "path": "papers/agents/2023-autogen-multi-agent.pdf",
+      "title": "Autogen Multi Agent",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 43,
+      "bytes": 3571809,
+      "year": "2023"
+    },
+    {
+      "id": "papers/agents/2023-reflexion.pdf",
+      "path": "papers/agents/2023-reflexion.pdf",
+      "title": "Reflexion",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 19,
+      "bytes": 591097,
+      "year": "2023"
+    },
+    {
+      "id": "papers/agents/2023-toolformer.pdf",
+      "path": "papers/agents/2023-toolformer.pdf",
+      "title": "Toolformer",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 17,
+      "bytes": 657966,
+      "year": "2023"
+    },
+    {
+      "id": "papers/agents/2024-osworld-computer-use-benchmark.pdf",
+      "path": "papers/agents/2024-osworld-computer-use-benchmark.pdf",
+      "title": "Osworld Computer Use Benchmark",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 51,
+      "bytes": 36863784,
+      "year": "2024"
+    },
+    {
+      "id": "papers/agents/2024-swe-agent.pdf",
+      "path": "papers/agents/2024-swe-agent.pdf",
+      "title": "Swe Agent",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 118,
+      "bytes": 4963538,
+      "year": "2024"
+    },
+    {
+      "id": "papers/agents/2025-agentic-rl-landscape-survey.pdf",
+      "path": "papers/agents/2025-agentic-rl-landscape-survey.pdf",
+      "title": "The Landscape of Agentic Reinforcement Learning for LLMs: A Survey",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 95,
+      "bytes": 9660671,
+      "year": "2025"
+    },
+    {
+      "id": "papers/agents/2025-metr-measuring-long-task-ability.pdf",
+      "path": "papers/agents/2025-metr-measuring-long-task-ability.pdf",
+      "title": "Measuring AI Ability to Complete Long Software Tasks",
+      "category": "Agents",
+      "section": "papers",
+      "pages": 45,
+      "bytes": 6319257,
+      "year": "2025"
+    },
+    {
+      "id": "papers/context-memory/2023-lost-in-the-middle.pdf",
+      "path": "papers/context-memory/2023-lost-in-the-middle.pdf",
+      "title": "Lost In The Middle",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 18,
+      "bytes": 747542,
+      "year": "2023"
+    },
+    {
+      "id": "papers/context-memory/2023-memgpt.pdf",
+      "path": "papers/context-memory/2023-memgpt.pdf",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 13,
+      "bytes": 663708,
+      "year": "2023"
+    },
+    {
+      "id": "papers/context-memory/2024-longmemeval.pdf",
+      "path": "papers/context-memory/2024-longmemeval.pdf",
+      "title": "Longmemeval",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 28,
+      "bytes": 749169,
+      "year": "2024"
+    },
+    {
+      "id": "papers/context-memory/2025-agentic-context-engineering.pdf",
+      "path": "papers/context-memory/2025-agentic-context-engineering.pdf",
+      "title": "Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 32,
+      "bytes": 2313268,
+      "year": "2025"
+    },
+    {
+      "id": "papers/context-memory/2025-context-engineering-survey.pdf",
+      "path": "papers/context-memory/2025-context-engineering-survey.pdf",
+      "title": "A Survey of Context Engineering for Large Language Models",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 166,
+      "bytes": 3808920,
+      "year": "2025"
+    },
+    {
+      "id": "papers/context-memory/2025-mem0.pdf",
+      "path": "papers/context-memory/2025-mem0.pdf",
+      "title": "Mem0",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 23,
+      "bytes": 1144031,
+      "year": "2025"
+    },
+    {
+      "id": "papers/context-memory/2025-recursive-language-models.pdf",
+      "path": "papers/context-memory/2025-recursive-language-models.pdf",
+      "title": "Recursive Language Models",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 43,
+      "bytes": 9942446,
+      "year": "2025"
+    },
+    {
+      "id": "papers/context-memory/2025-zep-temporal-knowledge-graph.pdf",
+      "path": "papers/context-memory/2025-zep-temporal-knowledge-graph.pdf",
+      "title": "Zep Temporal Knowledge Graph",
+      "category": "Context Memory",
+      "section": "papers",
+      "pages": 12,
+      "bytes": 148771,
+      "year": "2025"
+    },
+    {
+      "id": "papers/distributed-systems/2003-google-file-system.pdf",
+      "path": "papers/distributed-systems/2003-google-file-system.pdf",
+      "title": "paper.dvi",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 15,
+      "bytes": 275941,
+      "year": "2003"
+    },
+    {
+      "id": "papers/distributed-systems/2004-mapreduce.pdf",
+      "path": "papers/distributed-systems/2004-mapreduce.pdf",
+      "title": "Mapreduce",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 13,
+      "bytes": 190711,
+      "year": "2004"
+    },
+    {
+      "id": "papers/distributed-systems/2007-dynamo.pdf",
+      "path": "papers/distributed-systems/2007-dynamo.pdf",
+      "title": "Microsoft Word - sosp067-decandia1.doc",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 16,
+      "bytes": 900468,
+      "year": "2007"
+    },
+    {
+      "id": "papers/distributed-systems/2010-zookeeper.pdf",
+      "path": "papers/distributed-systems/2010-zookeeper.pdf",
+      "title": "Zookeeper",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 14,
+      "bytes": 2368431,
+      "year": "2010"
+    },
+    {
+      "id": "papers/distributed-systems/2011-kafka-distributed-messaging.pdf",
+      "path": "papers/distributed-systems/2011-kafka-distributed-messaging.pdf",
+      "title": "netdb-2011",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 7,
+      "bytes": 2253344,
+      "year": "2011"
+    },
+    {
+      "id": "papers/distributed-systems/2012-spanner.pdf",
+      "path": "papers/distributed-systems/2012-spanner.pdf",
+      "title": "Spanner: Google&rsquo;s Globally Distributed Database",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 22,
+      "bytes": 369777,
+      "year": "2012"
+    },
+    {
+      "id": "papers/distributed-systems/2014-raft.pdf",
+      "path": "papers/distributed-systems/2014-raft.pdf",
+      "title": "Raft",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 16,
+      "bytes": 609953,
+      "year": "2014"
+    },
+    {
+      "id": "papers/distributed-systems/2021-foundationdb.pdf",
+      "path": "papers/distributed-systems/2021-foundationdb.pdf",
+      "title": "Foundationdb",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 14,
+      "bytes": 1053117,
+      "year": "2021"
+    },
+    {
+      "id": "papers/distributed-systems/2023-dynamodb-transactions.pdf",
+      "path": "papers/distributed-systems/2023-dynamodb-transactions.pdf",
+      "title": "Dynamodb Transactions",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 13,
+      "bytes": 391741,
+      "year": "2023"
+    },
+    {
+      "id": "papers/distributed-systems/2025-temporal-durable-execution.pdf",
+      "path": "papers/distributed-systems/2025-temporal-durable-execution.pdf",
+      "title": "Temporal Durable Execution",
+      "category": "Distributed Systems",
+      "section": "papers",
+      "pages": 20,
+      "bytes": 2313957,
+      "year": "2025"
+    },
+    {
+      "id": "papers/evals-safety/2023-llm-as-judge-mtbench.pdf",
+      "path": "papers/evals-safety/2023-llm-as-judge-mtbench.pdf",
+      "title": "Llm As Judge Mtbench",
+      "category": "Evals Safety",
+      "section": "papers",
+      "pages": 29,
+      "bytes": 1580141,
+      "year": "2023"
+    },
+    {
+      "id": "papers/evals-safety/2024-livebench.pdf",
+      "path": "papers/evals-safety/2024-livebench.pdf",
+      "title": "LiveBench",
+      "category": "Evals Safety",
+      "section": "papers",
+      "pages": 37,
+      "bytes": 791089,
+      "year": "2024"
+    },
+    {
+      "id": "papers/evals-safety/2024-llm-as-judge-survey.pdf",
+      "path": "papers/evals-safety/2024-llm-as-judge-survey.pdf",
+      "title": "A Survey on LLM-as-a-Judge",
+      "category": "Evals Safety",
+      "section": "papers",
+      "pages": 64,
+      "bytes": 9788880,
+      "year": "2024"
+    },
+    {
+      "id": "papers/evals-safety/2024-who-validates-the-validators.pdf",
+      "path": "papers/evals-safety/2024-who-validates-the-validators.pdf",
+      "title": "Who Validates the Validators? Aligning LLM-Assisted Evaluation of LLM Outputs with Human Preferences",
+      "category": "Evals Safety",
+      "section": "papers",
+      "pages": 16,
+      "bytes": 2613163,
+      "year": "2024"
+    },
+    {
+      "id": "papers/evals-safety/2025-benchmark-contamination-survey.pdf",
+      "path": "papers/evals-safety/2025-benchmark-contamination-survey.pdf",
+      "title": "Recent Advances in Large Langauge Model Benchmarks against Data Contamination: From Static to Dynamic Evaluation",
+      "category": "Evals Safety",
+      "section": "papers",
+      "pages": 19,
+      "bytes": 692095,
+      "year": "2025"
+    },
+    {
+      "id": "papers/evals-safety/2025-preference-leakage-contamination.pdf",
+      "path": "papers/evals-safety/2025-preference-leakage-contamination.pdf",
+      "title": "Preference Leakage: A Contamination Problem in LLM-as-a-judge",
+      "category": "Evals Safety",
+      "section": "papers",
+      "pages": 26,
+      "bytes": 1497277,
+      "year": "2025"
+    },
+    {
+      "id": "papers/foundations/2017-attention-is-all-you-need.pdf",
+      "path": "papers/foundations/2017-attention-is-all-you-need.pdf",
+      "title": "Attention Is All You Need",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 15,
+      "bytes": 2215244,
+      "year": "2017"
+    },
+    {
+      "id": "papers/foundations/2020-gpt3-few-shot-learners.pdf",
+      "path": "papers/foundations/2020-gpt3-few-shot-learners.pdf",
+      "title": "Gpt3 Few Shot Learners",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 75,
+      "bytes": 6768044,
+      "year": "2020"
+    },
+    {
+      "id": "papers/foundations/2020-scaling-laws-kaplan.pdf",
+      "path": "papers/foundations/2020-scaling-laws-kaplan.pdf",
+      "title": "Scaling Laws Kaplan",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 30,
+      "bytes": 2493004,
+      "year": "2020"
+    },
+    {
+      "id": "papers/foundations/2022-chain-of-thought.pdf",
+      "path": "papers/foundations/2022-chain-of-thought.pdf",
+      "title": "Chain Of Thought",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 43,
+      "bytes": 891773,
+      "year": "2022"
+    },
+    {
+      "id": "papers/foundations/2022-chinchilla-compute-optimal.pdf",
+      "path": "papers/foundations/2022-chinchilla-compute-optimal.pdf",
+      "title": "Chinchilla Compute Optimal",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 36,
+      "bytes": 6004349,
+      "year": "2022"
+    },
+    {
+      "id": "papers/foundations/2022-constitutional-ai.pdf",
+      "path": "papers/foundations/2022-constitutional-ai.pdf",
+      "title": "Constitutional Ai",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 34,
+      "bytes": 2088111,
+      "year": "2022"
+    },
+    {
+      "id": "papers/foundations/2022-instructgpt-rlhf.pdf",
+      "path": "papers/foundations/2022-instructgpt-rlhf.pdf",
+      "title": "Instructgpt Rlhf",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 68,
+      "bytes": 1797405,
+      "year": "2022"
+    },
+    {
+      "id": "papers/foundations/2023-dpo-direct-preference-optimization.pdf",
+      "path": "papers/foundations/2023-dpo-direct-preference-optimization.pdf",
+      "title": "Dpo Direct Preference Optimization",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 27,
+      "bytes": 1299212,
+      "year": "2023"
+    },
+    {
+      "id": "papers/foundations/2023-llama.pdf",
+      "path": "papers/foundations/2023-llama.pdf",
+      "title": "Llama",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 27,
+      "bytes": 726566,
+      "year": "2023"
+    },
+    {
+      "id": "papers/foundations/2023-mamba-ssm.pdf",
+      "path": "papers/foundations/2023-mamba-ssm.pdf",
+      "title": "Mamba Ssm",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 36,
+      "bytes": 1168615,
+      "year": "2023"
+    },
+    {
+      "id": "papers/foundations/2024-deepseekmath-grpo.pdf",
+      "path": "papers/foundations/2024-deepseekmath-grpo.pdf",
+      "title": "Deepseekmath Grpo",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 30,
+      "bytes": 1844642,
+      "year": "2024"
+    },
+    {
+      "id": "papers/foundations/2024-scaling-test-time-compute.pdf",
+      "path": "papers/foundations/2024-scaling-test-time-compute.pdf",
+      "title": "Scaling Test Time Compute",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 37,
+      "bytes": 3870997,
+      "year": "2024"
+    },
+    {
+      "id": "papers/foundations/2025-deepseek-r1-reasoning-rl.pdf",
+      "path": "papers/foundations/2025-deepseek-r1-reasoning-rl.pdf",
+      "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 86,
+      "bytes": 5034998,
+      "year": "2025"
+    },
+    {
+      "id": "papers/foundations/2025-kimi-k2-agentic.pdf",
+      "path": "papers/foundations/2025-kimi-k2-agentic.pdf",
+      "title": "Kimi K2: Open Agentic Intelligence",
+      "category": "Foundations",
+      "section": "papers",
+      "pages": 32,
+      "bytes": 5872335,
+      "year": "2025"
+    },
+    {
+      "id": "papers/industry/2025-metr-ai-impact-experienced-devs.pdf",
+      "path": "papers/industry/2025-metr-ai-impact-experienced-devs.pdf",
+      "title": "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity",
+      "category": "Industry",
+      "section": "papers",
+      "pages": 51,
+      "bytes": 5668559,
+      "year": "2025"
+    },
+    {
+      "id": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf",
+      "path": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf",
+      "title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+      "category": "Industry Career",
+      "section": "papers",
+      "pages": 64,
+      "bytes": 1174643,
+      "year": "2024"
+    },
+    {
+      "id": "papers/industry-career/2025-dora-state-of-ai-assisted-software-development.pdf",
+      "path": "papers/industry-career/2025-dora-state-of-ai-assisted-software-development.pdf",
+      "title": "Dora State Of Ai Assisted Software Development",
+      "category": "Industry Career",
+      "section": "papers",
+      "pages": 142,
+      "bytes": 15479474,
+      "year": "2025"
+    },
+    {
+      "id": "papers/inference-serving/2021-lora.pdf",
+      "path": "papers/inference-serving/2021-lora.pdf",
+      "title": "Lora",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 26,
+      "bytes": 1609513,
+      "year": "2021"
+    },
+    {
+      "id": "papers/inference-serving/2022-speculative-decoding.pdf",
+      "path": "papers/inference-serving/2022-speculative-decoding.pdf",
+      "title": "Speculative Decoding",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 13,
+      "bytes": 574982,
+      "year": "2022"
+    },
+    {
+      "id": "papers/inference-serving/2023-awq-quantization.pdf",
+      "path": "papers/inference-serving/2023-awq-quantization.pdf",
+      "title": "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 15,
+      "bytes": 19804976,
+      "year": "2023"
+    },
+    {
+      "id": "papers/inference-serving/2023-qlora.pdf",
+      "path": "papers/inference-serving/2023-qlora.pdf",
+      "title": "Qlora",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 26,
+      "bytes": 1065470,
+      "year": "2023"
+    },
+    {
+      "id": "papers/inference-serving/2023-vllm-pagedattention.pdf",
+      "path": "papers/inference-serving/2023-vllm-pagedattention.pdf",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 16,
+      "bytes": 1459631,
+      "year": "2023"
+    },
+    {
+      "id": "papers/inference-serving/2024-deepseek-v3-technical-report.pdf",
+      "path": "papers/inference-serving/2024-deepseek-v3-technical-report.pdf",
+      "title": "Deepseek V3 Technical Report",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 53,
+      "bytes": 1887366,
+      "year": "2024"
+    },
+    {
+      "id": "papers/inference-serving/2024-tulu3-post-training.pdf",
+      "path": "papers/inference-serving/2024-tulu3-post-training.pdf",
+      "title": "Tulu3 Post Training",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 82,
+      "bytes": 8313277,
+      "year": "2024"
+    },
+    {
+      "id": "papers/inference-serving/2025-eagle3-speculative.pdf",
+      "path": "papers/inference-serving/2025-eagle3-speculative.pdf",
+      "title": "Eagle3 Speculative",
+      "category": "Inference Serving",
+      "section": "papers",
+      "pages": 12,
+      "bytes": 946062,
+      "year": "2025"
+    },
+    {
+      "id": "papers/multimodal-data/2024-chameleon-mixed-modal-early-fusion.pdf",
+      "path": "papers/multimodal-data/2024-chameleon-mixed-modal-early-fusion.pdf",
+      "title": "Chameleon Mixed Modal Early Fusion",
+      "category": "Multimodal Data",
+      "section": "papers",
+      "pages": 27,
+      "bytes": 25245551,
+      "year": "2024"
+    },
+    {
+      "id": "papers/multimodal-data/2025-qwen2-5-vl-technical-report.pdf",
+      "path": "papers/multimodal-data/2025-qwen2-5-vl-technical-report.pdf",
+      "title": "Qwen2 5 Vl Technical Report",
+      "category": "Multimodal Data",
+      "section": "papers",
+      "pages": 23,
+      "bytes": 2219929,
+      "year": "2025"
+    },
+    {
+      "id": "papers/production-systems/2017-ml-test-score.pdf",
+      "path": "papers/production-systems/2017-ml-test-score.pdf",
+      "title": "Ml Test Score",
+      "category": "Production Systems",
+      "section": "papers",
+      "pages": 10,
+      "bytes": 500055,
+      "year": "2017"
+    },
+    {
+      "id": "papers/production-systems/2019-data-validation-for-machine-learning.pdf",
+      "path": "papers/production-systems/2019-data-validation-for-machine-learning.pdf",
+      "title": "Data Validation for Machine Learning",
+      "category": "Production Systems",
+      "section": "papers",
+      "pages": 14,
+      "bytes": 435252,
+      "year": "2019"
+    },
+    {
+      "id": "papers/production-systems/2021-megatron-lm-distributed-training.pdf",
+      "path": "papers/production-systems/2021-megatron-lm-distributed-training.pdf",
+      "title": "Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+      "category": "Production Systems",
+      "section": "papers",
+      "pages": 13,
+      "bytes": 1035739,
+      "year": "2021"
+    },
+    {
+      "id": "papers/production-systems/2024-distserve-disaggregated-prefill-decode.pdf",
+      "path": "papers/production-systems/2024-distserve-disaggregated-prefill-decode.pdf",
+      "title": "Distserve Disaggregated Prefill Decode",
+      "category": "Production Systems",
+      "section": "papers",
+      "pages": 18,
+      "bytes": 647352,
+      "year": "2024"
+    },
+    {
+      "id": "papers/rag-retrieval/2020-rag-original.pdf",
+      "path": "papers/rag-retrieval/2020-rag-original.pdf",
+      "title": "Rag Original",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 19,
+      "bytes": 885323,
+      "year": "2020"
+    },
+    {
+      "id": "papers/rag-retrieval/2022-hyde-hypothetical-doc-embeddings.pdf",
+      "path": "papers/rag-retrieval/2022-hyde-hypothetical-doc-embeddings.pdf",
+      "title": "Hyde Hypothetical Doc Embeddings",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 11,
+      "bytes": 424964,
+      "year": "2022"
+    },
+    {
+      "id": "papers/rag-retrieval/2023-rag-for-llms-survey.pdf",
+      "path": "papers/rag-retrieval/2023-rag-for-llms-survey.pdf",
+      "title": "Rag For Llms Survey",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 21,
+      "bytes": 1662567,
+      "year": "2023"
+    },
+    {
+      "id": "papers/rag-retrieval/2023-self-rag.pdf",
+      "path": "papers/rag-retrieval/2023-self-rag.pdf",
+      "title": "Self Rag",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 30,
+      "bytes": 1405127,
+      "year": "2023"
+    },
+    {
+      "id": "papers/rag-retrieval/2024-graphrag-microsoft.pdf",
+      "path": "papers/rag-retrieval/2024-graphrag-microsoft.pdf",
+      "title": "Graphrag Microsoft",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 26,
+      "bytes": 6893854,
+      "year": "2024"
+    },
+    {
+      "id": "papers/rag-retrieval/2024-rag-vs-long-context.pdf",
+      "path": "papers/rag-retrieval/2024-rag-vs-long-context.pdf",
+      "title": "Rag Vs Long Context",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 13,
+      "bytes": 657247,
+      "year": "2024"
+    },
+    {
+      "id": "papers/rag-retrieval/2024-raptor-recursive-abstractive.pdf",
+      "path": "papers/rag-retrieval/2024-raptor-recursive-abstractive.pdf",
+      "title": "Raptor Recursive Abstractive",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 23,
+      "bytes": 2547113,
+      "year": "2024"
+    },
+    {
+      "id": "papers/rag-retrieval/2025-agentic-deep-research.pdf",
+      "path": "papers/rag-retrieval/2025-agentic-deep-research.pdf",
+      "title": "From Web Search towards Agentic Deep Research: Incentivizing Search with Reasoning Agents",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 18,
+      "bytes": 3240112,
+      "year": "2025"
+    },
+    {
+      "id": "papers/rag-retrieval/2025-agentic-rag-survey.pdf",
+      "path": "papers/rag-retrieval/2025-agentic-rag-survey.pdf",
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 42,
+      "bytes": 14269078,
+      "year": "2025"
+    },
+    {
+      "id": "papers/rag-retrieval/2025-qwen3-embedding-reranking.pdf",
+      "path": "papers/rag-retrieval/2025-qwen3-embedding-reranking.pdf",
+      "title": "Qwen3 Embedding: Advancing Text Embedding and Reranking Through Foundation Models",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 14,
+      "bytes": 782526,
+      "year": "2025"
+    },
+    {
+      "id": "papers/rag-retrieval/2025-rag-evaluation-survey.pdf",
+      "path": "papers/rag-retrieval/2025-rag-evaluation-survey.pdf",
+      "title": "Rag Evaluation Survey",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 18,
+      "bytes": 6488146,
+      "year": "2025"
+    },
+    {
+      "id": "papers/rag-retrieval/2025-search-r1.pdf",
+      "path": "papers/rag-retrieval/2025-search-r1.pdf",
+      "title": "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
+      "category": "Rag Retrieval",
+      "section": "papers",
+      "pages": 31,
+      "bytes": 645723,
+      "year": "2025"
+    },
+    {
+      "id": "papers/recommender-systems/2016-wide-and-deep.pdf",
+      "path": "papers/recommender-systems/2016-wide-and-deep.pdf",
+      "title": "Wide And Deep",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 4,
+      "bytes": 409971,
+      "year": "2016"
+    },
+    {
+      "id": "papers/recommender-systems/2016-youtube-deep-recommendations.pdf",
+      "path": "papers/recommender-systems/2016-youtube-deep-recommendations.pdf",
+      "title": "Youtube Deep Recommendations",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 8,
+      "bytes": 898498,
+      "year": "2016"
+    },
+    {
+      "id": "papers/recommender-systems/2019-dlrm.pdf",
+      "path": "papers/recommender-systems/2019-dlrm.pdf",
+      "title": "Dlrm",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 10,
+      "bytes": 1753300,
+      "year": "2019"
+    },
+    {
+      "id": "papers/recommender-systems/2019-sampling-bias-corrected-two-tower.pdf",
+      "path": "papers/recommender-systems/2019-sampling-bias-corrected-two-tower.pdf",
+      "title": "Sampling-Bias-Corrected Neural Modeling for Large Corpus Item Recommendations",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 9,
+      "bytes": 918103,
+      "year": "2019"
+    },
+    {
+      "id": "papers/recommender-systems/2020-dcn-v2.pdf",
+      "path": "papers/recommender-systems/2020-dcn-v2.pdf",
+      "title": "DCN V2: Improved Deep & Cross Network and Practical Lessons for Web-scale Learning to Rank Systems",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 14,
+      "bytes": 2078907,
+      "year": "2020"
+    },
+    {
+      "id": "papers/recommender-systems/2022-monolith-real-time-recommendation.pdf",
+      "path": "papers/recommender-systems/2022-monolith-real-time-recommendation.pdf",
+      "title": "Monolith: Real Time Recommendation System With Collisionless Embedding Table",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 10,
+      "bytes": 1624628,
+      "year": "2022"
+    },
+    {
+      "id": "papers/recommender-systems/2023-tiger-generative-retrieval.pdf",
+      "path": "papers/recommender-systems/2023-tiger-generative-retrieval.pdf",
+      "title": "Tiger Generative Retrieval",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 17,
+      "bytes": 2323169,
+      "year": "2023"
+    },
+    {
+      "id": "papers/recommender-systems/2024-hstu-generative-recommenders.pdf",
+      "path": "papers/recommender-systems/2024-hstu-generative-recommenders.pdf",
+      "title": "Actions Speak Louder than Words: Trillion-Parameter Sequential Transducers for Generative Recommendations",
+      "category": "Recommender Systems",
+      "section": "papers",
+      "pages": 26,
+      "bytes": 1621291,
+      "year": "2024"
+    },
+    {
+      "id": "papers/security-protocols/2024-agentdojo-prompt-injection-agents.pdf",
+      "path": "papers/security-protocols/2024-agentdojo-prompt-injection-agents.pdf",
+      "title": "Agentdojo Prompt Injection Agents",
+      "category": "Security Protocols",
+      "section": "papers",
+      "pages": 26,
+      "bytes": 1042076,
+      "year": "2024"
+    },
+    {
+      "id": "papers/security-protocols/2024-nist-sp-800-218a-secure-ai-development.pdf",
+      "path": "papers/security-protocols/2024-nist-sp-800-218a-secure-ai-development.pdf",
+      "title": "Secure Software Development Practices for Generative AI and Dual-Use Foundation Models: An SSDF Community Profile",
+      "category": "Security Protocols",
+      "section": "papers",
+      "pages": 30,
+      "bytes": 650661,
+      "year": "2024"
+    }
+  ]
+}

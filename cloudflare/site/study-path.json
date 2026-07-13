@@ -1,0 +1,400 @@
+{
+  "title": "AI Systems Engineer: 16-Week Path",
+  "subtitle": "Build context-aware agents, reliable distributed workflows, and measured retrieval/recommendation systems.",
+  "weeks": [
+    {
+      "week": 1,
+      "title": "Context inventory and evaluation",
+      "goal": "Make every context source, owner, permission, freshness rule, and token cost visible.",
+      "time": "6–8 hours",
+      "deliverable": "Context map plus 30–50 golden conversations covering long threads, stale facts, conflicts, injection, and permissions.",
+      "resources": [
+        {
+          "label": "Job-aligned track",
+          "kind": "note",
+          "path": "JOB-ALIGNED-LEARNING-PATH.md"
+        },
+        {
+          "label": "Agentic context engineering",
+          "kind": "pdf",
+          "path": "papers/context-memory/2025-agentic-context-engineering.pdf"
+        },
+        {
+          "label": "LangChain context engineering",
+          "kind": "external",
+          "url": "https://docs.langchain.com/oss/python/langchain/context-engineering"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "title": "LangGraph persistence and replay",
+      "goal": "Understand state, threads, checkpoints, interrupts, replay, and safe graph resumption.",
+      "time": "6–10 hours",
+      "deliverable": "Restart/resume tests at graph boundaries and a state-schema versioning note.",
+      "resources": [
+        {
+          "label": "LangGraph persistence docs",
+          "kind": "external",
+          "url": "https://docs.langchain.com/oss/python/langgraph/persistence"
+        },
+        {
+          "label": "MemGPT",
+          "kind": "pdf",
+          "path": "papers/context-memory/2023-memgpt.pdf"
+        },
+        {
+          "label": "LongMemEval",
+          "kind": "pdf",
+          "path": "papers/context-memory/2024-longmemeval.pdf"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "title": "Safe side effects and agent boundaries",
+      "goal": "Separate model decisions, runtime context, domain writes, approvals, and idempotency keys.",
+      "time": "6–10 hours",
+      "deliverable": "Effect ledger and tests proving a replay cannot duplicate a user-visible write.",
+      "resources": [
+        {
+          "label": "OpenAI agents guide",
+          "kind": "pdf",
+          "path": "guides/openai-a-practical-guide-to-building-agents.pdf"
+        },
+        {
+          "label": "AgentDojo security evaluation",
+          "kind": "pdf",
+          "path": "papers/security-protocols/2024-agentdojo-prompt-injection-agents.pdf"
+        },
+        {
+          "label": "ReAct",
+          "kind": "pdf",
+          "path": "papers/agents/2022-react-reasoning-and-acting.pdf"
+        },
+        {
+          "label": "OpenAI Agents SDK docs",
+          "kind": "external",
+          "url": "https://openai.github.io/openai-agents-python/"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Tracing and eval gates",
+      "goal": "Make traces, graders, cost, latency, and regressions part of the development loop.",
+      "time": "6–8 hours",
+      "deliverable": "Trace schema, context budget ledger, task graders, and a release threshold.",
+      "resources": [
+        {
+          "label": "LLM evals FAQ",
+          "kind": "pdf",
+          "path": "guides/hamel-llm-evals-faq.pdf"
+        },
+        {
+          "label": "LLM-as-judge MT-Bench",
+          "kind": "pdf",
+          "path": "papers/evals-safety/2023-llm-as-judge-mtbench.pdf"
+        },
+        {
+          "label": "ML Test Score",
+          "kind": "pdf",
+          "path": "papers/production-systems/2017-ml-test-score.pdf"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "title": "Framework comparison",
+      "goal": "Learn the concepts that transfer across LangGraph, LangChain, ADK, Pydantic AI, and OpenAI Agents.",
+      "time": "8–12 hours",
+      "deliverable": "One small approval workflow implemented in two runtimes and compared by measured trade-offs.",
+      "resources": [
+        {
+          "label": "Google ADK docs",
+          "kind": "external",
+          "url": "https://google.github.io/adk-docs/"
+        },
+        {
+          "label": "LangGraph source",
+          "kind": "code",
+          "path": "framework-code/langgraph"
+        },
+        {
+          "label": "Google ADK Python source",
+          "kind": "code",
+          "path": "framework-code/google-adk-python"
+        },
+        {
+          "label": "Pydantic AI source",
+          "kind": "code",
+          "path": "framework-code/pydantic-ai"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "title": "Kafka correctness",
+      "goal": "Understand partitions, consumer groups, offsets, retries, DLQs, replay, lag, and backpressure.",
+      "time": "8–12 hours",
+      "deliverable": "Crash matrix proving the intended delivery semantics for one consumer workflow.",
+      "resources": [
+        {
+          "label": "Kafka paper",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2011-kafka-distributed-messaging.pdf"
+        },
+        {
+          "label": "Kafka design documentation",
+          "kind": "external",
+          "url": "https://kafka.apache.org/documentation/#design"
+        },
+        {
+          "label": "Google File System",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2003-google-file-system.pdf"
+        },
+        {
+          "label": "MapReduce",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2004-mapreduce.pdf"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "title": "Postgres, Redis, and transactional boundaries",
+      "goal": "Use transactions, constraints, outbox/inbox patterns, leases, fencing, and cache invalidation deliberately.",
+      "time": "8–12 hours",
+      "deliverable": "Transactional deduplication plus Redis lock/lease failure tests.",
+      "resources": [
+        {
+          "label": "Dynamo",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2007-dynamo.pdf"
+        },
+        {
+          "label": "FoundationDB",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2021-foundationdb.pdf"
+        },
+        {
+          "label": "Database Internals access",
+          "kind": "external",
+          "url": "https://www.oreilly.com/library/view/database-internals/9781492040330/"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "title": "Temporal durable execution",
+      "goal": "Make long-lived workflows recoverable across process death, retries, deploys, and timeouts.",
+      "time": "8–12 hours",
+      "deliverable": "One durable workflow with activity idempotence, retry policy, timeout policy, and recovery demo.",
+      "resources": [
+        {
+          "label": "Temporal durable execution guide",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2025-temporal-durable-execution.pdf"
+        },
+        {
+          "label": "Raft",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2014-raft.pdf"
+        },
+        {
+          "label": "ZooKeeper",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2010-zookeeper.pdf"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "title": "Recommendation data contracts",
+      "goal": "Separate exposure, outcome, negative feedback, delayed labels, and point-in-time features.",
+      "time": "6–10 hours",
+      "deliverable": "Exposure/outcome schema, leakage tests, retention rules, and a reproducible dataset.",
+      "resources": [
+        {
+          "label": "Recommender book audit",
+          "kind": "note",
+          "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md"
+        },
+        {
+          "label": "Google recommendation course",
+          "kind": "external",
+          "url": "https://developers.google.com/machine-learning/recommendation"
+        },
+        {
+          "label": "Information Retrieval",
+          "kind": "pdf",
+          "path": "books/introduction-to-information-retrieval.pdf"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "title": "Candidate generation",
+      "goal": "Build multiple candidate sources and measure per-source recall, freshness, and latency.",
+      "time": "8–12 hours",
+      "deliverable": "Popularity/rules plus vector or two-tower retrieval baseline with recall@k.",
+      "resources": [
+        {
+          "label": "YouTube deep recommendations",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2016-youtube-deep-recommendations.pdf"
+        },
+        {
+          "label": "Sampling-bias-corrected two-tower retrieval",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2019-sampling-bias-corrected-two-tower.pdf"
+        },
+        {
+          "label": "DLRM",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2019-dlrm.pdf"
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "title": "Ranking and reranking",
+      "goal": "Separate learned relevance from diversity, freshness, safety, policy, and user controls.",
+      "time": "8–12 hours",
+      "deliverable": "Ranker plus explicit policy reranker with offline slices and latency budget.",
+      "resources": [
+        {
+          "label": "Wide & Deep",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2016-wide-and-deep.pdf"
+        },
+        {
+          "label": "DCN V2",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2020-dcn-v2.pdf"
+        },
+        {
+          "label": "Aggarwal chapter guidance",
+          "kind": "note",
+          "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md"
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "title": "Freshness and online learning",
+      "goal": "Understand non-stationary signals, embedding updates, delayed feedback, and index refresh.",
+      "time": "8–12 hours",
+      "deliverable": "Freshness experiment with feature/index versioning and backfill behavior.",
+      "resources": [
+        {
+          "label": "Monolith",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2022-monolith-real-time-recommendation.pdf"
+        },
+        {
+          "label": "Spanner",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2012-spanner.pdf"
+        },
+        {
+          "label": "DynamoDB transactions",
+          "kind": "pdf",
+          "path": "papers/distributed-systems/2023-dynamodb-transactions.pdf"
+        }
+      ]
+    },
+    {
+      "week": 13,
+      "title": "Generative recommendation frontier",
+      "goal": "Understand when generative retrieval is useful and when a two-stage baseline remains better.",
+      "time": "6–10 hours",
+      "deliverable": "Comparison note: ANN/two-tower baseline versus semantic-ID or sequential generative retrieval.",
+      "resources": [
+        {
+          "label": "TIGER generative retrieval",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2023-tiger-generative-retrieval.pdf"
+        },
+        {
+          "label": "HSTU generative recommenders",
+          "kind": "pdf",
+          "path": "papers/recommender-systems/2024-hstu-generative-recommenders.pdf"
+        }
+      ]
+    },
+    {
+      "week": 14,
+      "title": "Fault injection and operations",
+      "goal": "Practice dependency failure, throttling, stale reads, duplicate events, partial writes, and shutdown.",
+      "time": "8–12 hours",
+      "deliverable": "Fault-injection report with SLO impact, rollback, reconciliation, and runbook updates.",
+      "resources": [
+        {
+          "label": "Distributed systems book access",
+          "kind": "note",
+          "path": "DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md"
+        },
+        {
+          "label": "Distributed Systems 4e course page",
+          "kind": "external",
+          "url": "https://www.distributed-systems.net/index.php/books/ds4/"
+        },
+        {
+          "label": "MIT 6.5840",
+          "kind": "external",
+          "url": "https://pdos.csail.mit.edu/6.824/"
+        }
+      ]
+    },
+    {
+      "week": 15,
+      "title": "Integrated production slice",
+      "goal": "Connect context-aware agents, reliable events, retrieval, recommendation candidates, traces, and evals.",
+      "time": "10–14 hours",
+      "deliverable": "One end-to-end slice with golden tests, traces, cost/latency dashboard, and safe rollout plan.",
+      "resources": [
+        {
+          "label": "Job-aligned track",
+          "kind": "note",
+          "path": "JOB-ALIGNED-LEARNING-PATH.md"
+        },
+        {
+          "label": "Production MLOps guide",
+          "kind": "pdf",
+          "path": "guides/production/2021-google-practitioners-guide-to-mlops.pdf"
+        },
+        {
+          "label": "NIST GenAI profile",
+          "kind": "pdf",
+          "path": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf"
+        }
+      ]
+    },
+    {
+      "week": 16,
+      "title": "Staff-level package",
+      "goal": "Turn the work into evidence of technical leadership and system ownership.",
+      "time": "8–12 hours",
+      "deliverable": "Design doc, threat model, capacity model, SLOs, rollout plan, incident drill, and retrospective.",
+      "resources": [
+        {
+          "label": "Career guide",
+          "kind": "note",
+          "path": "CAREER-GUIDE-DRAFT.md"
+        },
+        {
+          "label": "Software Engineering at Google",
+          "kind": "external",
+          "url": "https://abseil.io/resources/swe-book"
+        },
+        {
+          "label": "Google SRE books",
+          "kind": "external",
+          "url": "https://sre.google/books/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+name = "ai-engineering-study-hub"
+compatibility_date = "2026-07-13"
+pages_build_output_dir = "site"
+
+[[r2_buckets]]
+binding = "LIBRARY"
+bucket_name = "ai-engineering-library"

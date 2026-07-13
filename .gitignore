@@ -1,0 +1,13 @@
+# The personal repository contains the Study Hub deployment, never the local PDF corpus.
+*
+!.gitignore
+!cloudflare/
+!cloudflare/**
+!study-hub/
+!study-hub/**
+
+# Never commit local credentials or generated Wrangler state.
+.env*
+.dev.vars*
+.wrangler/
+.study-hub-credentials
