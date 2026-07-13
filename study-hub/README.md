@@ -22,10 +22,13 @@ copying them into a generated site. The workspace-note links assume the library 
 ## How to use it
 
 1. Open **Learning path** and choose the current week.
-2. Read only the resource needed for the week's question.
-3. Build the smallest version in the service or a scratch project.
-4. Inject a failure and measure the result.
-5. Mark the resource and project complete only after meeting its acceptance criteria
+2. Follow the resource label: **Start here** first, keep **Build with this** open
+   while coding, and use **Deep dive**, **Reference**, or **Frontier** only when needed.
+3. Use the **Key sections** buttons to jump directly to the relevant PDF page,
+   Markdown heading, documentation section, or source directory.
+4. Build the smallest version in the service or a scratch project.
+5. Inject a failure and measure the result.
+6. Mark the resource and project complete only after meeting its acceptance criteria
    and writing the trade-off.
 
 Use `Cmd/Ctrl-K` to jump to library search. The **Library** view searches the 108

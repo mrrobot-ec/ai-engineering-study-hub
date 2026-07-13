@@ -7,7 +7,6 @@ progress metadata.
 """
 
 import argparse
-import html
 import json
 import mimetypes
 import re
@@ -204,11 +203,7 @@ class StudyHubHandler(BaseHTTPRequestHandler):
             self.send_error(HTTPStatus.NOT_FOUND)
             return
         content = path.read_text(encoding="utf-8", errors="replace")
-        rendered = "<!doctype html><meta charset='utf-8'><title>%s</title><style>body{margin:2rem;background:#10131a;color:#e7eaf0;font:15px/1.55 ui-monospace,monospace}pre{white-space:pre-wrap;max-width:1000px;margin:auto}</style><pre>%s</pre>" % (
-            html.escape(name),
-            html.escape(content),
-        )
-        self.send_bytes(rendered.encode("utf-8"), "text/html; charset=utf-8")
+        self.send_bytes(content.encode("utf-8"), "text/markdown; charset=utf-8")
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)

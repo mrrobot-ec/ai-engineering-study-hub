@@ -46,6 +46,39 @@ function resourceKey(resource) {
   return `${resource.kind || "pdf"}:${resource.path || resource.url || resource.id}`;
 }
 
+function resourceKeys(resource) {
+  return state.studyPath?.documentKeys?.[resourceKey(resource)] || [];
+}
+
+function resourceRole(resource) {
+  if (resource.role) return resource.role;
+  for (const week of state.studyPath?.weeks || []) {
+    const match = week.resources.find((candidate) => resourceKey(candidate) === resourceKey(resource));
+    if (match?.role) return match.role;
+  }
+  return "";
+}
+
+function roleInfo(resource) {
+  const role = resourceRole(resource);
+  return { role, ...(state.studyPath?.readingRoles?.[role] || {}) };
+}
+
+function slugifyHeading(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/[\s-]+/g, "-");
+}
+
+function keyMarker(key) {
+  if (key.page) return `p.${key.page}`;
+  if (key.heading) return "§";
+  return "↗";
+}
+
 function isComplete(resource) {
   return Boolean(state.completed[resourceKey(resource)]);
 }
@@ -162,8 +195,9 @@ function toggleWeek(number) {
   renderAll();
 }
 
-function recordOpened(resource) {
+function recordOpened(resource, target = {}) {
   const key = resourceKey(resource);
+  const previous = state.opened[key] || {};
   state.opened[key] = {
     id: resource.id || "",
     title: resource.title || resource.label || resource.path || "Resource",
@@ -174,6 +208,9 @@ function recordOpened(resource) {
     category: resource.category || "",
     pages: resource.pages || 0,
     bytes: resource.bytes || 0,
+    lastPage: target.page || previous.lastPage || 0,
+    lastHeading: target.heading || previous.lastHeading || "",
+    targetUrl: target.url || previous.targetUrl || "",
     openedAt: new Date().toISOString()
   };
   saveProgress();
@@ -227,7 +264,14 @@ function renderRecentReading() {
       <span>${escapeHtml(formatRecentDate(resource.openedAt))}${state.completed[key] ? " · ✓ complete" : ""}</span>
     </button>`).join("");
   container.querySelectorAll("[data-recent]").forEach((button) => {
-    button.addEventListener("click", () => selectResource(state.opened[button.dataset.recent]));
+    button.addEventListener("click", () => {
+      const resource = state.opened[button.dataset.recent];
+      selectResource(resource, {
+        page: resource.lastPage || 0,
+        heading: resource.lastHeading || "",
+        url: resource.targetUrl || ""
+      });
+    });
   });
 }
 
@@ -260,8 +304,15 @@ function renderPath() {
     const weekDone = Boolean(state.completedWeeks[String(week.week)]);
     const resources = week.resources.map((resource) => {
       const done = isComplete(resource);
-      const action = `data-resource='${escapeHtml(JSON.stringify(resource))}'`;
-      return `<button class="resource-chip ${done ? "done" : ""}" ${action}>${done ? "✓ " : ""}${escapeHtml(resource.label)}</button>`;
+      const info = roleInfo(resource);
+      const keys = resourceKeys(resource).map((key, index) => `<button class="key-button" data-key-resource='${escapeHtml(JSON.stringify(resource))}' data-key-index="${index}"><span>${escapeHtml(keyMarker(key))}</span> ${escapeHtml(key.label)}</button>`).join("");
+      return `<article class="study-resource ${done ? "done" : ""}">
+        <button class="resource-main" data-resource='${escapeHtml(JSON.stringify(resource))}' title="${escapeHtml(info.description || "Open resource")}">
+          <span class="role-badge role-${escapeHtml(info.role)}">${escapeHtml(info.label || "Read")}</span>
+          <strong>${escapeHtml(resource.label)}</strong>${done ? '<span class="done-mark">✓</span>' : ""}
+        </button>
+        <div class="resource-key-list"><span class="key-label">Key sections</span>${keys}</div>
+      </article>`;
     }).join("");
     const project = week.project || { title: week.title, summary: week.deliverable, acceptance: [] };
     const acceptance = (project.acceptance || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
@@ -270,11 +321,18 @@ function renderPath() {
       <div><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.goal)}</p></div>
       <div class="week-deliverable"><label>Deliverable · ${escapeHtml(week.time)}</label><p>${escapeHtml(week.deliverable)}</p></div>
       <div class="week-project"><div><label>Build project</label><h4>${escapeHtml(project.title)}</h4><p>${escapeHtml(project.summary)}</p></div>${acceptance ? `<ul>${acceptance}</ul>` : ""}</div>
-      <div class="week-actions">${resources}<label class="week-check"><input type="checkbox" data-week="${week.week}" ${weekDone ? "checked" : ""}/> project complete</label></div>
+      <div class="week-resources">${resources}</div>
+      <div class="week-actions"><label class="week-check"><input type="checkbox" data-week="${week.week}" ${weekDone ? "checked" : ""}/> project complete</label></div>
     </article>`;
   }).join("");
   container.querySelectorAll("[data-resource]").forEach((button) => {
     button.addEventListener("click", () => selectResource(JSON.parse(button.dataset.resource)));
+  });
+  container.querySelectorAll("[data-key-resource]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const resource = JSON.parse(button.dataset.keyResource);
+      openResourceKey(resource, resourceKeys(resource)[Number(button.dataset.keyIndex)]);
+    });
   });
   container.querySelectorAll("[data-week]").forEach((checkbox) => {
     checkbox.addEventListener("change", () => toggleWeek(checkbox.dataset.week));
@@ -314,26 +372,59 @@ function renderMarkdown(markdown) {
 }
 
 function markdownDocument(title, rendered) {
-  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escapeHtml(title)}</title><link rel="stylesheet" href="/static/styles.css"></head><body class="standalone-note"><article class="markdown-reader">${rendered}</article></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><base href="${escapeHtml(window.location.origin)}/"><title>${escapeHtml(title)}</title><link rel="stylesheet" href="/static/styles.css"></head><body class="standalone-note"><article class="markdown-reader">${rendered}</article></body></html>`;
 }
 
-async function selectResource(resource) {
+function decorateMarkdownHeadings(body) {
+  const counts = {};
+  body.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((heading) => {
+    const base = slugifyHeading(heading.textContent) || "section";
+    counts[base] = (counts[base] || 0) + 1;
+    heading.id = counts[base] === 1 ? base : `${base}-${counts[base]}`;
+  });
+}
+
+function openResourceKey(resource, key) {
+  if (!key) return;
+  if (key.url) window.open(key.url, "_blank", "noopener");
+  selectResource(resource, { page: key.page || 0, heading: key.heading || "", url: key.url || "" });
+}
+
+function renderReaderKeys(resource) {
+  const container = $("#reader-keys");
+  const keys = resourceKeys(resource);
+  if (!keys.length) {
+    container.classList.add("hidden");
+    container.innerHTML = "";
+    return;
+  }
+  const info = roleInfo(resource);
+  container.classList.remove("hidden");
+  container.innerHTML = `${info.role ? `<span class="role-badge role-${escapeHtml(info.role)}" title="${escapeHtml(info.description)}">${escapeHtml(info.label)}</span>` : ""}<span class="key-label">Jump to</span>${keys.map((key, index) => `<button class="key-button" data-reader-key="${index}"><span>${escapeHtml(keyMarker(key))}</span> ${escapeHtml(key.label)}</button>`).join("")}`;
+  container.querySelectorAll("[data-reader-key]").forEach((button) => {
+    button.addEventListener("click", () => openResourceKey(resource, keys[Number(button.dataset.readerKey)]));
+  });
+}
+
+async function selectResource(resource, target = {}) {
   state.current = resource;
-  recordOpened(resource);
+  recordOpened(resource, target);
   showView("library-view");
-  $("#reader-title").textContent = resource.title || resource.label || "Resource";
+  const targetLabel = target.page ? ` · page ${target.page}` : target.heading ? ` · ${target.heading}` : "";
+  $("#reader-title").textContent = `${resource.title || resource.label || "Resource"}${targetLabel}`;
   $("#open-new-tab").disabled = false;
   $("#mark-complete").disabled = false;
   $("#mark-complete").textContent = isComplete(resource) ? "Completed ✓" : "Mark complete";
+  renderReaderKeys(resource);
   const body = $("#reader-body");
   let url = "";
   state.currentOpenAction = null;
   if (resource.kind === "external") {
-    url = resource.url;
+    url = target.url || resource.url;
     body.innerHTML = `<div class="reader-empty"><div class="reader-icon">↗</div><h2>Official web reference</h2><p>This resource lives on its official site. Open it in a new tab while keeping the Study Hub available.</p><a class="primary-button" href="${escapeHtml(url)}" target="_blank" rel="noopener">Open reference ↗</a></div>`;
     state.currentOpenAction = () => window.open(url, "_blank", "noopener");
   } else if (resource.kind === "code") {
-    url = CODE_URLS[resource.path] || "https://github.com";
+    url = target.url || CODE_URLS[resource.path] || "https://github.com";
     body.innerHTML = `<div class="reader-empty"><div class="reader-icon">⌘</div><h2>Official source repository</h2><p>Use the pinned local clone for source reading, or open its canonical repository.</p><a class="primary-button" href="${escapeHtml(url)}" target="_blank" rel="noopener">Open repository ↗</a></div>`;
     state.currentOpenAction = () => window.open(url, "_blank", "noopener");
   } else if (resource.kind === "note") {
@@ -344,11 +435,19 @@ async function selectResource(resource) {
       if (!response.ok) throw new Error(`Note load failed: ${response.status}`);
       const rendered = renderMarkdown(await response.text());
       body.innerHTML = `<article class="markdown-reader">${rendered}</article>`;
+      decorateMarkdownHeadings(body);
       body.querySelectorAll("a").forEach((link) => { link.target = "_blank"; link.rel = "noopener"; });
+      const targetId = slugifyHeading(target.heading);
+      const targetHeading = [...body.querySelectorAll("h1, h2, h3, h4, h5, h6")].find((heading) => heading.id === targetId || heading.id.endsWith(`-${targetId}`));
+      const resolvedTargetId = targetHeading?.id || targetId;
+      if (targetHeading) window.requestAnimationFrame(() => targetHeading.scrollIntoView({ behavior: "smooth", block: "start" }));
       const title = resource.label || resource.path;
       state.currentOpenAction = () => {
-        const blob = new Blob([markdownDocument(title, rendered)], { type: "text/html" });
-        window.open(URL.createObjectURL(blob), "_blank", "noopener");
+        const renderedWithIds = body.querySelector(".markdown-reader").innerHTML;
+        const blob = new Blob([markdownDocument(title, renderedWithIds)], { type: "text/html" });
+        const objectUrl = URL.createObjectURL(blob);
+        window.open(`${objectUrl}${resolvedTargetId ? `#${resolvedTargetId}` : ""}`, "_blank", "noopener");
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 60_000);
       };
     } catch (error) {
       console.error(error);
@@ -357,8 +456,10 @@ async function selectResource(resource) {
     }
   } else {
     url = pdfUrl(resource.path);
-    body.innerHTML = `<iframe title="${escapeHtml(resource.title || resource.path)}" src="${url}#page=1"></iframe>`;
-    state.currentOpenAction = () => window.open(url, "_blank", "noopener");
+    const page = Math.max(1, Number(target.page) || 1);
+    const pageUrl = `${url}#page=${page}`;
+    body.innerHTML = `<iframe title="${escapeHtml(resource.title || resource.path)}" src="${pageUrl}"></iframe>`;
+    state.currentOpenAction = () => window.open(pageUrl, "_blank", "noopener");
   }
   $("#open-new-tab").onclick = () => state.currentOpenAction?.();
   renderAll();

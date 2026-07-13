@@ -107,6 +107,9 @@ function normalizeProgress(input) {
       category: cleanText(resource.category, 200),
       pages: Number.isFinite(Number(resource.pages)) ? Math.max(0, Math.floor(Number(resource.pages))) : 0,
       bytes: Number.isFinite(Number(resource.bytes)) ? Math.max(0, Math.floor(Number(resource.bytes))) : 0,
+      lastPage: Number.isFinite(Number(resource.lastPage)) ? Math.max(0, Math.floor(Number(resource.lastPage))) : 0,
+      lastHeading: cleanText(resource.lastHeading, 500),
+      targetUrl: cleanText(resource.targetUrl, 2000),
       openedAt: Number.isNaN(openedAt.getTime()) ? new Date().toISOString() : openedAt.toISOString(),
     };
   }

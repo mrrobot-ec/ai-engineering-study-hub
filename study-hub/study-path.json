@@ -1,6 +1,262 @@
 {
   "title": "AI Systems Engineer: 16-Week Path",
   "subtitle": "Build context-aware agents, reliable distributed workflows, and measured retrieval/recommendation systems.",
+  "readingRoles": {
+    "start": {"label": "Start here", "description": "Required foundation; read the linked key sections before building."},
+    "build": {"label": "Build with this", "description": "Keep this documentation or source open while implementing."},
+    "deep": {"label": "Deep dive", "description": "Read the key sections when you need the underlying mechanism."},
+    "reference": {"label": "Reference", "description": "Search or consult this when the project exposes a gap."},
+    "frontier": {"label": "Frontier", "description": "Optional advanced material after the project baseline works."}
+  },
+  "documentKeys": {
+    "note:JOB-ALIGNED-LEARNING-PATH.md": [
+      {"label": "Target skill profile", "heading": "The target skill profile"},
+      {"label": "Context reference model", "heading": "Context engineering: the reference model"},
+      {"label": "Distributed failure modes", "heading": "Distributed systems: learn through this service's failure modes"},
+      {"label": "Portfolio evidence", "heading": "Portfolio artifacts that demonstrate senior/staff scope"}
+    ],
+    "note:workspace/agent-context-rearchitecture-design.md": [
+      {"label": "Root causes", "heading": "Structural root causes (all five reduce to these)"},
+      {"label": "Architecture", "heading": "Architecture overview"},
+      {"label": "Testing", "heading": "Testing"}
+    ],
+    "pdf:papers/context-memory/2025-agentic-context-engineering.pdf": [
+      {"label": "ACE architecture", "page": 4},
+      {"label": "Grow-and-refine", "page": 5},
+      {"label": "Agent benchmark results", "page": 7}
+    ],
+    "external:https://docs.langchain.com/oss/python/langchain/context-engineering": [
+      {"label": "Model context", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#model-context"},
+      {"label": "Tool context", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#tool-context"},
+      {"label": "Life-cycle context", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#life-cycle-context"}
+    ],
+    "note:workspace/LANGGRAPH_ORCHESTRATION.md": [
+      {"label": "Graph state", "heading": "GraphState: The State Container"},
+      {"label": "Primary router", "heading": "main_graph.py: The Primary Router"},
+      {"label": "Multi-turn example", "heading": "Complete Multi-Turn Example"}
+    ],
+    "external:https://docs.langchain.com/oss/python/langgraph/persistence": [
+      {"label": "Why persistence", "url": "https://docs.langchain.com/oss/python/langgraph/persistence#why-use-persistence"},
+      {"label": "Replay", "url": "https://docs.langchain.com/oss/python/langgraph/persistence#replay"},
+      {"label": "Update state", "url": "https://docs.langchain.com/oss/python/langgraph/persistence#update-state"}
+    ],
+    "pdf:papers/context-memory/2023-memgpt.pdf": [
+      {"label": "Memory architecture", "page": 2},
+      {"label": "Control flow", "page": 4},
+      {"label": "Document analysis", "page": 6}
+    ],
+    "pdf:papers/context-memory/2024-longmemeval.pdf": [
+      {"label": "Benchmark design", "page": 4},
+      {"label": "Memory system choices", "page": 7},
+      {"label": "Results", "page": 8}
+    ],
+    "pdf:guides/openai-a-practical-guide-to-building-agents.pdf": [
+      {"label": "Agent foundations", "page": 7},
+      {"label": "Guardrails", "page": 24},
+      {"label": "Human intervention", "page": 31}
+    ],
+    "pdf:papers/security-protocols/2024-agentdojo-prompt-injection-agents.pdf": [
+      {"label": "Benchmark components", "page": 3},
+      {"label": "Defenses", "page": 5},
+      {"label": "Evaluation", "page": 6}
+    ],
+    "pdf:papers/agents/2022-react-reasoning-and-acting.pdf": [
+      {"label": "ReAct mechanism", "page": 3},
+      {"label": "Reasoning results", "page": 5},
+      {"label": "Decision tasks", "page": 7}
+    ],
+    "external:https://openai.github.io/openai-agents-python/": [
+      {"label": "Tools", "url": "https://openai.github.io/openai-agents-python/tools/"},
+      {"label": "Human approvals", "url": "https://openai.github.io/openai-agents-python/human_in_the_loop/"},
+      {"label": "Guardrails", "url": "https://openai.github.io/openai-agents-python/guardrails/"}
+    ],
+    "pdf:guides/hamel-llm-evals-faq.pdf": [
+      {"label": "Minimum viable evals", "page": 4},
+      {"label": "Error analysis", "page": 6},
+      {"label": "CI/CD vs monitoring", "page": 29}
+    ],
+    "pdf:papers/evals-safety/2023-llm-as-judge-mtbench.pdf": [
+      {"label": "MT-Bench", "page": 3},
+      {"label": "Judge patterns and limits", "page": 4},
+      {"label": "Agreement evaluation", "page": 7}
+    ],
+    "pdf:papers/production-systems/2017-ml-test-score.pdf": [
+      {"label": "Feature/data tests", "page": 2},
+      {"label": "Model-development tests", "page": 3},
+      {"label": "Monitoring tests", "page": 6}
+    ],
+    "external:https://google.github.io/adk-docs/": [
+      {"label": "Agent types", "url": "https://google.github.io/adk-docs/agents/"},
+      {"label": "Tools", "url": "https://google.github.io/adk-docs/tools/"},
+      {"label": "Sessions and state", "url": "https://google.github.io/adk-docs/sessions/"}
+    ],
+    "code:framework-code/langgraph": [
+      {"label": "StateGraph", "url": "https://github.com/langchain-ai/langgraph/tree/main/libs/langgraph/langgraph/graph"},
+      {"label": "Pregel runtime", "url": "https://github.com/langchain-ai/langgraph/tree/main/libs/langgraph/langgraph/pregel"},
+      {"label": "Checkpointers", "url": "https://github.com/langchain-ai/langgraph/tree/main/libs/checkpoint"}
+    ],
+    "code:framework-code/google-adk-python": [
+      {"label": "Agents", "url": "https://github.com/google/adk-python/tree/main/src/google/adk/agents"},
+      {"label": "Runner", "url": "https://github.com/google/adk-python/blob/main/src/google/adk/runners.py"},
+      {"label": "Sessions", "url": "https://github.com/google/adk-python/tree/main/src/google/adk/sessions"}
+    ],
+    "code:framework-code/pydantic-ai": [
+      {"label": "Agent API", "url": "https://github.com/pydantic/pydantic-ai/tree/main/pydantic_ai_slim/pydantic_ai/agent"},
+      {"label": "Graph runtime", "url": "https://github.com/pydantic/pydantic-ai/tree/main/pydantic_graph"},
+      {"label": "Toolsets", "url": "https://github.com/pydantic/pydantic-ai/tree/main/pydantic_ai_slim/pydantic_ai/toolsets"}
+    ],
+    "pdf:papers/distributed-systems/2011-kafka-distributed-messaging.pdf": [
+      {"label": "Architecture", "page": 2},
+      {"label": "Consumer coordination", "page": 3},
+      {"label": "Delivery guarantees", "page": 4}
+    ],
+    "external:https://kafka.apache.org/documentation/#design": [
+      {"label": "Consumer groups", "url": "https://kafka.apache.org/documentation/#intro_consumers"},
+      {"label": "Delivery semantics", "url": "https://kafka.apache.org/documentation/#semantics"},
+      {"label": "Design", "url": "https://kafka.apache.org/documentation/#design"}
+    ],
+    "pdf:papers/distributed-systems/2003-google-file-system.pdf": [
+      {"label": "Architecture", "page": 3},
+      {"label": "Consistency model", "page": 4},
+      {"label": "Fault tolerance", "page": 9}
+    ],
+    "pdf:papers/distributed-systems/2004-mapreduce.pdf": [
+      {"label": "Execution model", "page": 3},
+      {"label": "Worker failures", "page": 4},
+      {"label": "Backup tasks", "page": 6}
+    ],
+    "pdf:papers/distributed-systems/2007-dynamo.pdf": [
+      {"label": "Partitioning", "page": 5},
+      {"label": "Versioning", "page": 6},
+      {"label": "Hinted handoff", "page": 8}
+    ],
+    "pdf:papers/distributed-systems/2021-foundationdb.pdf": [
+      {"label": "Architecture", "page": 3},
+      {"label": "Transaction management", "page": 4},
+      {"label": "Simulation testing", "page": 8}
+    ],
+    "external:https://www.oreilly.com/library/view/database-internals/9781492040330/": [
+      {"label": "Book overview and contents", "url": "https://www.oreilly.com/library/view/database-internals/9781492040330/"}
+    ],
+    "pdf:papers/distributed-systems/2025-temporal-durable-execution.pdf": [
+      {"label": "Durable execution", "page": 4},
+      {"label": "Durable workflow code", "page": 6},
+      {"label": "New possibilities", "page": 15}
+    ],
+    "pdf:papers/distributed-systems/2014-raft.pdf": [
+      {"label": "Leader election", "page": 6},
+      {"label": "Log replication", "page": 7},
+      {"label": "Membership changes", "page": 11}
+    ],
+    "pdf:papers/distributed-systems/2010-zookeeper.pdf": [
+      {"label": "Service model", "page": 2},
+      {"label": "Guarantees", "page": 4},
+      {"label": "Coordination recipes", "page": 5}
+    ],
+    "note:RECOMMENDER-SYSTEMS-BOOK-AUDIT.md": [
+      {"label": "Audit result", "heading": "Result"},
+      {"label": "Information Retrieval", "heading": "Introduction to Information Retrieval"},
+      {"label": "Recommender textbook", "heading": "Recommender Systems: The Textbook"}
+    ],
+    "external:https://developers.google.com/machine-learning/recommendation": [
+      {"label": "Three-stage architecture", "url": "https://developers.google.com/machine-learning/recommendation/overview/types"},
+      {"label": "Candidate generation", "url": "https://developers.google.com/machine-learning/recommendation/overview/candidate-generation"},
+      {"label": "Scoring", "url": "https://developers.google.com/machine-learning/recommendation/dnn/scoring"}
+    ],
+    "pdf:books/introduction-to-information-retrieval.pdf": [
+      {"label": "Index construction", "page": 104},
+      {"label": "Scoring and vector space", "page": 146},
+      {"label": "Retrieval evaluation", "page": 188}
+    ],
+    "pdf:papers/recommender-systems/2016-youtube-deep-recommendations.pdf": [
+      {"label": "Candidate generation", "page": 2},
+      {"label": "Labels and context", "page": 3},
+      {"label": "Ranking", "page": 5}
+    ],
+    "pdf:papers/recommender-systems/2019-sampling-bias-corrected-two-tower.pdf": [
+      {"label": "Two-tower framework", "page": 3},
+      {"label": "Frequency correction", "page": 4},
+      {"label": "Serving architecture", "page": 6}
+    ],
+    "pdf:papers/recommender-systems/2019-dlrm.pdf": [
+      {"label": "DLRM architecture", "page": 2},
+      {"label": "Parallelism", "page": 4},
+      {"label": "Evaluation", "page": 6}
+    ],
+    "pdf:papers/recommender-systems/2016-wide-and-deep.pdf": [
+      {"label": "Wide and deep model", "page": 2},
+      {"label": "Production implementation", "page": 3},
+      {"label": "Results", "page": 3}
+    ],
+    "pdf:papers/recommender-systems/2020-dcn-v2.pdf": [
+      {"label": "DCN-V2 architecture", "page": 2},
+      {"label": "Cross-network analysis", "page": 4},
+      {"label": "Experiments", "page": 6}
+    ],
+    "pdf:papers/recommender-systems/2022-monolith-real-time-recommendation.pdf": [
+      {"label": "System design", "page": 3},
+      {"label": "Online training", "page": 4},
+      {"label": "Fault tolerance", "page": 5}
+    ],
+    "pdf:papers/distributed-systems/2012-spanner.pdf": [
+      {"label": "TrueTime", "page": 7},
+      {"label": "Concurrency control", "page": 8},
+      {"label": "Evaluation", "page": 14}
+    ],
+    "pdf:papers/distributed-systems/2023-dynamodb-transactions.pdf": [
+      {"label": "Transaction execution", "page": 3},
+      {"label": "Write protocol", "page": 4},
+      {"label": "Recovery", "page": 6}
+    ],
+    "pdf:papers/recommender-systems/2023-tiger-generative-retrieval.pdf": [
+      {"label": "Semantic IDs", "page": 4},
+      {"label": "Generative retrieval", "page": 5},
+      {"label": "Recommendation results", "page": 6}
+    ],
+    "pdf:papers/recommender-systems/2024-hstu-generative-recommenders.pdf": [
+      {"label": "Sequential formulation", "page": 2},
+      {"label": "HSTU attention", "page": 4},
+      {"label": "Scaling law", "page": 8}
+    ],
+    "note:DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md": [
+      {"label": "Free textbook", "heading": "Start with this free textbook"},
+      {"label": "Paid systems shelf", "heading": "The paid systems shelf"},
+      {"label": "Courses and operations", "heading": "Free course and operations references"}
+    ],
+    "external:https://www.distributed-systems.net/index.php/books/ds4/": [
+      {"label": "Textbook downloads", "url": "https://www.distributed-systems.net/index.php/books/ds4/"}
+    ],
+    "external:https://pdos.csail.mit.edu/6.824/": [
+      {"label": "Current schedule and readings", "url": "https://pdos.csail.mit.edu/6.824/schedule.html"},
+      {"label": "Raft lab", "url": "https://pdos.csail.mit.edu/6.824/labs/lab-raft1.html"},
+      {"label": "Sharded KV lab", "url": "https://pdos.csail.mit.edu/6.824/labs/lab-shard1.html"}
+    ],
+    "pdf:guides/production/2021-google-practitioners-guide-to-mlops.pdf": [
+      {"label": "MLOps lifecycle", "page": 7},
+      {"label": "Training operationalization", "page": 18},
+      {"label": "Continuous monitoring", "page": 26}
+    ],
+    "pdf:papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf": [
+      {"label": "GenAI risks", "page": 6},
+      {"label": "Risk-management actions", "page": 16},
+      {"label": "Governance and testing", "page": 51}
+    ],
+    "note:CAREER-GUIDE-DRAFT.md": [
+      {"label": "Company profiles", "heading": "Company profiles"},
+      {"label": "Competency matrix", "heading": "Competency matrix"},
+      {"label": "Portfolio projects", "heading": "Portfolio: four projects that prove the competencies"}
+    ],
+    "external:https://abseil.io/resources/swe-book": [
+      {"label": "Engineering vs programming", "url": "https://abseil.io/resources/swe-book/html/ch01.html"},
+      {"label": "Leading a team", "url": "https://abseil.io/resources/swe-book/html/ch05.html"},
+      {"label": "Design documents", "url": "https://abseil.io/resources/swe-book/html/ch10.html#design-docs"}
+    ],
+    "external:https://sre.google/books/": [
+      {"label": "Service-level objectives", "url": "https://sre.google/sre-book/service-level-objectives/"},
+      {"label": "Monitoring distributed systems", "url": "https://sre.google/sre-book/monitoring-distributed-systems/"},
+      {"label": "Testing reliability", "url": "https://sre.google/sre-book/testing-reliability/"}
+    ]
+  },
   "weeks": [
     {
       "week": 1,
@@ -14,10 +270,10 @@
         "acceptance": ["Run 30–50 golden conversations", "Produce a per-turn context ledger", "Write a failure report for stale, conflicting, and unauthorized context"]
       },
       "resources": [
-        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md"},
-        {"label": "Context rearchitecture design", "kind": "note", "path": "workspace/agent-context-rearchitecture-design.md"},
-        {"label": "Agentic context engineering", "kind": "pdf", "path": "papers/context-memory/2025-agentic-context-engineering.pdf"},
-        {"label": "LangChain context engineering", "kind": "external", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering"}
+        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start"},
+        {"label": "Context rearchitecture design", "kind": "note", "path": "workspace/agent-context-rearchitecture-design.md", "role": "build"},
+        {"label": "Agentic context engineering", "kind": "pdf", "path": "papers/context-memory/2025-agentic-context-engineering.pdf", "role": "deep"},
+        {"label": "LangChain context engineering", "kind": "external", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering", "role": "build"}
       ]
     },
     {
@@ -32,10 +288,10 @@
         "acceptance": ["Restart successfully at every checkpoint", "Test one state-schema migration", "Demonstrate interrupt, approval, and replay"]
       },
       "resources": [
-        {"label": "LangGraph orchestration guide", "kind": "note", "path": "workspace/LANGGRAPH_ORCHESTRATION.md"},
-        {"label": "LangGraph persistence docs", "kind": "external", "url": "https://docs.langchain.com/oss/python/langgraph/persistence"},
-        {"label": "MemGPT", "kind": "pdf", "path": "papers/context-memory/2023-memgpt.pdf"},
-        {"label": "LongMemEval", "kind": "pdf", "path": "papers/context-memory/2024-longmemeval.pdf"}
+        {"label": "LangGraph orchestration guide", "kind": "note", "path": "workspace/LANGGRAPH_ORCHESTRATION.md", "role": "build"},
+        {"label": "LangGraph persistence docs", "kind": "external", "url": "https://docs.langchain.com/oss/python/langgraph/persistence", "role": "start"},
+        {"label": "MemGPT", "kind": "pdf", "path": "papers/context-memory/2023-memgpt.pdf", "role": "deep"},
+        {"label": "LongMemEval", "kind": "pdf", "path": "papers/context-memory/2024-longmemeval.pdf", "role": "frontier"}
       ]
     },
     {
@@ -50,10 +306,10 @@
         "acceptance": ["Replay causes no duplicate writes", "Sensitive actions require explicit approval", "Every effect has an auditable lifecycle"]
       },
       "resources": [
-        {"label": "OpenAI agents guide", "kind": "pdf", "path": "guides/openai-a-practical-guide-to-building-agents.pdf"},
-        {"label": "AgentDojo security evaluation", "kind": "pdf", "path": "papers/security-protocols/2024-agentdojo-prompt-injection-agents.pdf"},
-        {"label": "ReAct", "kind": "pdf", "path": "papers/agents/2022-react-reasoning-and-acting.pdf"},
-        {"label": "OpenAI Agents SDK docs", "kind": "external", "url": "https://openai.github.io/openai-agents-python/"}
+        {"label": "OpenAI agents guide", "kind": "pdf", "path": "guides/openai-a-practical-guide-to-building-agents.pdf", "role": "start"},
+        {"label": "AgentDojo security evaluation", "kind": "pdf", "path": "papers/security-protocols/2024-agentdojo-prompt-injection-agents.pdf", "role": "deep"},
+        {"label": "ReAct", "kind": "pdf", "path": "papers/agents/2022-react-reasoning-and-acting.pdf", "role": "reference"},
+        {"label": "OpenAI Agents SDK docs", "kind": "external", "url": "https://openai.github.io/openai-agents-python/", "role": "build"}
       ]
     },
     {
@@ -68,9 +324,9 @@
         "acceptance": ["Version a representative golden set", "Implement deterministic and model-based graders", "Fail CI when a release threshold regresses"]
       },
       "resources": [
-        {"label": "LLM evals FAQ", "kind": "pdf", "path": "guides/hamel-llm-evals-faq.pdf"},
-        {"label": "LLM-as-judge MT-Bench", "kind": "pdf", "path": "papers/evals-safety/2023-llm-as-judge-mtbench.pdf"},
-        {"label": "ML Test Score", "kind": "pdf", "path": "papers/production-systems/2017-ml-test-score.pdf"}
+        {"label": "LLM evals FAQ", "kind": "pdf", "path": "guides/hamel-llm-evals-faq.pdf", "role": "start"},
+        {"label": "LLM-as-judge MT-Bench", "kind": "pdf", "path": "papers/evals-safety/2023-llm-as-judge-mtbench.pdf", "role": "deep"},
+        {"label": "ML Test Score", "kind": "pdf", "path": "papers/production-systems/2017-ml-test-score.pdf", "role": "build"}
       ]
     },
     {
@@ -85,10 +341,10 @@
         "acceptance": ["Use an identical task and tool contract", "Compare traces, recovery, testing, and ergonomics", "Publish an architecture decision record"]
       },
       "resources": [
-        {"label": "Google ADK docs", "kind": "external", "url": "https://google.github.io/adk-docs/"},
-        {"label": "LangGraph source", "kind": "code", "path": "framework-code/langgraph"},
-        {"label": "Google ADK Python source", "kind": "code", "path": "framework-code/google-adk-python"},
-        {"label": "Pydantic AI source", "kind": "code", "path": "framework-code/pydantic-ai"}
+        {"label": "Google ADK docs", "kind": "external", "url": "https://google.github.io/adk-docs/", "role": "start"},
+        {"label": "LangGraph source", "kind": "code", "path": "framework-code/langgraph", "role": "reference"},
+        {"label": "Google ADK Python source", "kind": "code", "path": "framework-code/google-adk-python", "role": "build"},
+        {"label": "Pydantic AI source", "kind": "code", "path": "framework-code/pydantic-ai", "role": "frontier"}
       ]
     },
     {
@@ -103,10 +359,10 @@
         "acceptance": ["Demonstrate retries, DLQ, and replay", "Measure lag and backpressure", "Document the observed delivery semantics"]
       },
       "resources": [
-        {"label": "Kafka paper", "kind": "pdf", "path": "papers/distributed-systems/2011-kafka-distributed-messaging.pdf"},
-        {"label": "Kafka design documentation", "kind": "external", "url": "https://kafka.apache.org/documentation/#design"},
-        {"label": "Google File System", "kind": "pdf", "path": "papers/distributed-systems/2003-google-file-system.pdf"},
-        {"label": "MapReduce", "kind": "pdf", "path": "papers/distributed-systems/2004-mapreduce.pdf"}
+        {"label": "Kafka paper", "kind": "pdf", "path": "papers/distributed-systems/2011-kafka-distributed-messaging.pdf", "role": "start"},
+        {"label": "Kafka design documentation", "kind": "external", "url": "https://kafka.apache.org/documentation/#design", "role": "build"},
+        {"label": "Google File System", "kind": "pdf", "path": "papers/distributed-systems/2003-google-file-system.pdf", "role": "deep"},
+        {"label": "MapReduce", "kind": "pdf", "path": "papers/distributed-systems/2004-mapreduce.pdf", "role": "reference"}
       ]
     },
     {
@@ -121,9 +377,9 @@
         "acceptance": ["Persist domain change and event atomically", "Deduplicate repeated deliveries", "Test an expired lease with a fencing token"]
       },
       "resources": [
-        {"label": "Dynamo", "kind": "pdf", "path": "papers/distributed-systems/2007-dynamo.pdf"},
-        {"label": "FoundationDB", "kind": "pdf", "path": "papers/distributed-systems/2021-foundationdb.pdf"},
-        {"label": "Database Internals access", "kind": "external", "url": "https://www.oreilly.com/library/view/database-internals/9781492040330/"}
+        {"label": "Dynamo", "kind": "pdf", "path": "papers/distributed-systems/2007-dynamo.pdf", "role": "start"},
+        {"label": "FoundationDB", "kind": "pdf", "path": "papers/distributed-systems/2021-foundationdb.pdf", "role": "deep"},
+        {"label": "Database Internals access", "kind": "external", "url": "https://www.oreilly.com/library/view/database-internals/9781492040330/", "role": "reference"}
       ]
     },
     {
@@ -138,9 +394,9 @@
         "acceptance": ["Make every activity idempotent", "Configure retries and timeouts deliberately", "Kill workers mid-run and prove recovery"]
       },
       "resources": [
-        {"label": "Temporal durable execution guide", "kind": "pdf", "path": "papers/distributed-systems/2025-temporal-durable-execution.pdf"},
-        {"label": "Raft", "kind": "pdf", "path": "papers/distributed-systems/2014-raft.pdf"},
-        {"label": "ZooKeeper", "kind": "pdf", "path": "papers/distributed-systems/2010-zookeeper.pdf"}
+        {"label": "Temporal durable execution guide", "kind": "pdf", "path": "papers/distributed-systems/2025-temporal-durable-execution.pdf", "role": "start"},
+        {"label": "Raft", "kind": "pdf", "path": "papers/distributed-systems/2014-raft.pdf", "role": "deep"},
+        {"label": "ZooKeeper", "kind": "pdf", "path": "papers/distributed-systems/2010-zookeeper.pdf", "role": "reference"}
       ]
     },
     {
@@ -155,9 +411,9 @@
         "acceptance": ["Add an automated leakage test", "Represent delayed and negative feedback", "Rebuild the same training snapshot reproducibly"]
       },
       "resources": [
-        {"label": "Recommender book audit", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md"},
-        {"label": "Google recommendation course", "kind": "external", "url": "https://developers.google.com/machine-learning/recommendation"},
-        {"label": "Information Retrieval", "kind": "pdf", "path": "books/introduction-to-information-retrieval.pdf"}
+        {"label": "Recommender book audit", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md", "role": "start"},
+        {"label": "Google recommendation course", "kind": "external", "url": "https://developers.google.com/machine-learning/recommendation", "role": "build"},
+        {"label": "Information Retrieval", "kind": "pdf", "path": "books/introduction-to-information-retrieval.pdf", "role": "reference"}
       ]
     },
     {
@@ -172,9 +428,9 @@
         "acceptance": ["Report recall@k by candidate source", "Measure latency and freshness", "Provide a fallback when a source is unavailable"]
       },
       "resources": [
-        {"label": "YouTube deep recommendations", "kind": "pdf", "path": "papers/recommender-systems/2016-youtube-deep-recommendations.pdf"},
-        {"label": "Sampling-bias-corrected two-tower retrieval", "kind": "pdf", "path": "papers/recommender-systems/2019-sampling-bias-corrected-two-tower.pdf"},
-        {"label": "DLRM", "kind": "pdf", "path": "papers/recommender-systems/2019-dlrm.pdf"}
+        {"label": "YouTube deep recommendations", "kind": "pdf", "path": "papers/recommender-systems/2016-youtube-deep-recommendations.pdf", "role": "start"},
+        {"label": "Sampling-bias-corrected two-tower retrieval", "kind": "pdf", "path": "papers/recommender-systems/2019-sampling-bias-corrected-two-tower.pdf", "role": "build"},
+        {"label": "DLRM", "kind": "pdf", "path": "papers/recommender-systems/2019-dlrm.pdf", "role": "deep"}
       ]
     },
     {
@@ -189,9 +445,9 @@
         "acceptance": ["Evaluate important user and item slices", "Keep policies separate from learned relevance", "Meet a stated serving latency budget"]
       },
       "resources": [
-        {"label": "Wide & Deep", "kind": "pdf", "path": "papers/recommender-systems/2016-wide-and-deep.pdf"},
-        {"label": "DCN V2", "kind": "pdf", "path": "papers/recommender-systems/2020-dcn-v2.pdf"},
-        {"label": "Aggarwal chapter guidance", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md"}
+        {"label": "Wide & Deep", "kind": "pdf", "path": "papers/recommender-systems/2016-wide-and-deep.pdf", "role": "start"},
+        {"label": "DCN V2", "kind": "pdf", "path": "papers/recommender-systems/2020-dcn-v2.pdf", "role": "deep"},
+        {"label": "Aggarwal chapter guidance", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md", "role": "reference"}
       ]
     },
     {
@@ -206,9 +462,9 @@
         "acceptance": ["Version features, embeddings, and indexes", "Run a historical backfill safely", "Measure the quality impact of fresher signals"]
       },
       "resources": [
-        {"label": "Monolith", "kind": "pdf", "path": "papers/recommender-systems/2022-monolith-real-time-recommendation.pdf"},
-        {"label": "Spanner", "kind": "pdf", "path": "papers/distributed-systems/2012-spanner.pdf"},
-        {"label": "DynamoDB transactions", "kind": "pdf", "path": "papers/distributed-systems/2023-dynamodb-transactions.pdf"}
+        {"label": "Monolith", "kind": "pdf", "path": "papers/recommender-systems/2022-monolith-real-time-recommendation.pdf", "role": "start"},
+        {"label": "Spanner", "kind": "pdf", "path": "papers/distributed-systems/2012-spanner.pdf", "role": "deep"},
+        {"label": "DynamoDB transactions", "kind": "pdf", "path": "papers/distributed-systems/2023-dynamodb-transactions.pdf", "role": "reference"}
       ]
     },
     {
@@ -223,8 +479,8 @@
         "acceptance": ["Keep the data split and metrics fixed", "Compare quality, latency, and cost", "Write a decision memo explaining where each approach wins"]
       },
       "resources": [
-        {"label": "TIGER generative retrieval", "kind": "pdf", "path": "papers/recommender-systems/2023-tiger-generative-retrieval.pdf"},
-        {"label": "HSTU generative recommenders", "kind": "pdf", "path": "papers/recommender-systems/2024-hstu-generative-recommenders.pdf"}
+        {"label": "TIGER generative retrieval", "kind": "pdf", "path": "papers/recommender-systems/2023-tiger-generative-retrieval.pdf", "role": "start"},
+        {"label": "HSTU generative recommenders", "kind": "pdf", "path": "papers/recommender-systems/2024-hstu-generative-recommenders.pdf", "role": "frontier"}
       ]
     },
     {
@@ -239,9 +495,9 @@
         "acceptance": ["Measure the impact against an SLO", "Demonstrate rollback and reconciliation", "Turn every finding into a runbook action"]
       },
       "resources": [
-        {"label": "Distributed systems book access", "kind": "note", "path": "DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md"},
-        {"label": "Distributed Systems 4e course page", "kind": "external", "url": "https://www.distributed-systems.net/index.php/books/ds4/"},
-        {"label": "MIT 6.5840", "kind": "external", "url": "https://pdos.csail.mit.edu/6.824/"}
+        {"label": "Distributed systems book access", "kind": "note", "path": "DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md", "role": "start"},
+        {"label": "Distributed Systems 4e course page", "kind": "external", "url": "https://www.distributed-systems.net/index.php/books/ds4/", "role": "reference"},
+        {"label": "MIT 6.5840", "kind": "external", "url": "https://pdos.csail.mit.edu/6.824/", "role": "build"}
       ]
     },
     {
@@ -256,9 +512,9 @@
         "acceptance": ["Capture end-to-end traces", "Pass golden and failure-path tests", "Expose cost, latency, quality, and rollout controls"]
       },
       "resources": [
-        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md"},
-        {"label": "Production MLOps guide", "kind": "pdf", "path": "guides/production/2021-google-practitioners-guide-to-mlops.pdf"},
-        {"label": "NIST GenAI profile", "kind": "pdf", "path": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf"}
+        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start"},
+        {"label": "Production MLOps guide", "kind": "pdf", "path": "guides/production/2021-google-practitioners-guide-to-mlops.pdf", "role": "build"},
+        {"label": "NIST GenAI profile", "kind": "pdf", "path": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf", "role": "reference"}
       ]
     },
     {
@@ -273,9 +529,9 @@
         "acceptance": ["Publish the code and design artifacts in a personal repository", "Present trade-offs, capacity, security, SLOs, and rollout", "Include an incident exercise and retrospective"]
       },
       "resources": [
-        {"label": "Career guide", "kind": "note", "path": "CAREER-GUIDE-DRAFT.md"},
-        {"label": "Software Engineering at Google", "kind": "external", "url": "https://abseil.io/resources/swe-book"},
-        {"label": "Google SRE books", "kind": "external", "url": "https://sre.google/books/"}
+        {"label": "Career guide", "kind": "note", "path": "CAREER-GUIDE-DRAFT.md", "role": "start"},
+        {"label": "Software Engineering at Google", "kind": "external", "url": "https://abseil.io/resources/swe-book", "role": "deep"},
+        {"label": "Google SRE books", "kind": "external", "url": "https://sre.google/books/", "role": "reference"}
       ]
     }
   ]

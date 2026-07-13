@@ -71,7 +71,14 @@
         </section>
 
         <section class="view hidden" id="path-view">
-          <div class="page-heading"><div class="eyebrow">16 WEEKS · 6–14 HOURS/WEEK</div><h1>The build-first learning path</h1><p>Each week has a deliverable. Open a resource, mark it complete, then return to the system you are building.</p></div>
+          <div class="page-heading"><div class="eyebrow">16 WEEKS · 6–14 HOURS/WEEK</div><h1>The build-first learning path</h1><p>Follow the reading labels, open only the key sections you need, then return to the system you are building.</p></div>
+          <div class="reading-legend" aria-label="Reading priority labels">
+            <div><span class="role-badge role-start">Start here</span><small>required foundation</small></div>
+            <div><span class="role-badge role-build">Build with this</span><small>implementation companion</small></div>
+            <div><span class="role-badge role-deep">Deep dive</span><small>underlying mechanism</small></div>
+            <div><span class="role-badge role-reference">Reference</span><small>consult when blocked</small></div>
+            <div><span class="role-badge role-frontier">Frontier</span><small>optional advanced work</small></div>
+          </div>
           <div class="path-progress"><div class="progress-track"><div class="progress-fill" id="path-progress-fill"></div></div><span id="path-progress-label">0 / 16 weeks</span></div>
           <div id="week-list" class="week-list"></div>
         </section>
@@ -79,7 +86,7 @@
         <section class="view hidden" id="library-view">
           <div class="page-heading library-heading"><div><div class="eyebrow">108 CURATED PDFS</div><h1>Read from one place</h1><p>Search the private collection, open PDFs and rendered notes, and keep your reading history synced.</p></div><div class="library-shortcut"><span>⌘ K</span> search</div></div>
           <div class="library-toolbar"><label class="search-box"><span>⌕</span><input id="library-search" type="search" placeholder="Search title, filename, or category…" autocomplete="off" /></label><select id="category-filter"><option value="all">All categories</option></select><select id="sort-filter"><option value="title">Sort: title</option><option value="pages">Sort: pages</option><option value="year">Sort: year</option></select></div>
-          <div class="library-layout"><div id="resource-list" class="resource-list"><div class="loading">Indexing the library…</div></div><div class="reader-panel"><div class="reader-toolbar"><div><div class="reader-kicker">READER</div><div class="reader-title" id="reader-title">Choose a resource</div></div><div class="reader-actions"><button class="ghost-button" id="mark-complete" disabled>Mark complete</button><button class="ghost-button" id="open-new-tab" disabled>Open tab ↗</button></div></div><div class="reader-body" id="reader-body"><div class="reader-empty"><div class="reader-icon">◫</div><h2>Your focused reading desk</h2><p>Pick a PDF, rendered note, or week resource. Opened items and completions are saved privately.</p></div></div></div></div>
+          <div class="library-layout"><div id="resource-list" class="resource-list"><div class="loading">Indexing the library…</div></div><div class="reader-panel"><div class="reader-toolbar"><div><div class="reader-kicker">READER</div><div class="reader-title" id="reader-title">Choose a resource</div></div><div class="reader-actions"><button class="ghost-button" id="mark-complete" disabled>Mark complete</button><button class="ghost-button" id="open-new-tab" disabled>Open tab ↗</button></div></div><div class="reader-keybar hidden" id="reader-keys"></div><div class="reader-body" id="reader-body"><div class="reader-empty"><div class="reader-icon">◫</div><h2>Your focused reading desk</h2><p>Pick a PDF, rendered note, or week resource. Opened items and completions are saved privately.</p></div></div></div></div>
         </section>
       </main>
     </div>
