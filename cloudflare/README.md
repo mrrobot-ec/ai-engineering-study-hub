@@ -4,6 +4,11 @@ This directory deploys the Study Hub UI to Cloudflare Pages and serves the local
 policy-audited PDFs from a private R2 bucket. The repository never contains the PDF
 corpus. The Pages Worker uses HTTP Basic Authentication before serving any route.
 
+Production URL: https://ai-engineering-study-hub.pages.dev
+
+The generated credentials are stored locally at `../.study-hub-credentials`; that file
+is ignored by Git and was never uploaded.
+
 ## Build assets
 
 From the library root:
