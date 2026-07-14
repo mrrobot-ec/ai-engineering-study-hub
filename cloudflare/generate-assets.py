@@ -7,13 +7,25 @@ metadata index and the static UI; PDFs are uploaded separately to a private R2 b
 
 import importlib.util
 import json
+import re
 import shutil
+import subprocess
+from collections import Counter
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(__file__).resolve().parent / "site"
 STATIC = ROOT / "study-hub" / "static"
+
+STOP_WORDS = {
+    "about", "after", "again", "against", "also", "among", "because", "been", "before", "being",
+    "between", "both", "can", "could", "does", "each", "from", "have", "into", "more", "most",
+    "not", "only", "other", "our", "over", "such", "than", "that", "the", "their", "then", "there",
+    "these", "they", "this", "through", "under", "using", "was", "were", "when", "where", "which",
+    "while", "will", "with", "would", "you", "your", "and", "for", "are", "but", "has", "its", "may",
+    "paper", "figure", "table", "section", "chapter", "et", "al", "www", "http", "https", "org", "com",
+}
 
 
 def load_local_server():
@@ -23,6 +35,69 @@ def load_local_server():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def page_terms(text: str) -> str:
+    tokens = re.findall(r"[a-z][a-z0-9][a-z0-9_+.-]{1,}", text.lower())
+    counts = Counter(token for token in tokens if token not in STOP_WORDS and not token.isdigit())
+    first_positions = {token: index for index, token in reversed(list(enumerate(tokens)))}
+    ranked = sorted(counts, key=lambda token: (-counts[token], first_positions[token], token))[:64]
+    return " ".join(ranked)
+
+
+def page_snippet(text: str) -> str:
+    compact = re.sub(r"\s+", " ", text).strip()
+    compact = re.sub(r"^(arxiv:\S+\s+)?", "", compact, flags=re.IGNORECASE)
+    return compact[:240]
+
+
+def extract_pages(source: Path, expected_pages: int) -> list[str]:
+    result = subprocess.run(
+        ["pdftotext", "-layout", str(source), "-"],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=180,
+    )
+    extracted = result.stdout.split("\f")
+    if expected_pages and len(extracted) > expected_pages + 1:
+        physical_pages = []
+        for page_number in range(1, expected_pages + 1):
+            page_result = subprocess.run(
+                ["pdftotext", "-f", str(page_number), "-l", str(page_number), "-layout", str(source), "-"],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            physical_pages.append(page_result.stdout.replace("\f", " "))
+        return physical_pages
+    return extracted[:expected_pages] if expected_pages else extracted
+
+
+def build_page_index(items: list[dict[str, object]]) -> dict[str, object]:
+    documents = []
+    pages = []
+    for document_index, item in enumerate(items):
+        documents.append({
+            "path": item["path"],
+            "title": item["title"],
+            "category": item["category"],
+            "pages": item["pages"],
+            "bytes": item["bytes"],
+            "year": item["year"],
+        })
+        source = ROOT / str(item["path"])
+        try:
+            extracted_pages = extract_pages(source, int(item["pages"] or 0))
+        except (OSError, subprocess.SubprocessError):
+            continue
+        for page_number, text in enumerate(extracted_pages, start=1):
+            terms = page_terms(text)
+            snippet = page_snippet(text)
+            if terms or snippet:
+                pages.append([document_index, page_number, terms, snippet])
+    return {"version": 1, "documents": documents, "pages": pages}
 
 
 def main() -> None:
@@ -45,6 +120,12 @@ def main() -> None:
     items = module.build_library_index()
     (OUT / "library-index.json").write_text(
         json.dumps({"items": items}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    page_index = build_page_index(items)
+    (OUT / "page-index.json").write_text(
+        json.dumps(page_index, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
 

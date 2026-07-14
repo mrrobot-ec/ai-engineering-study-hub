@@ -7,6 +7,7 @@ const STATIC_PATHS = new Set([
   "/static/marked.LICENSE",
   "/static/styles.css",
   "/library-index.json",
+  "/page-index.json",
   "/study-path.json",
 ]);
 const NOTE_NAMES = new Set([
@@ -110,16 +111,39 @@ function normalizeProgress(input) {
       lastPage: Number.isFinite(Number(resource.lastPage)) ? Math.max(0, Math.floor(Number(resource.lastPage))) : 0,
       lastHeading: cleanText(resource.lastHeading, 500),
       targetUrl: cleanText(resource.targetUrl, 2000),
+      assignmentId: cleanText(resource.assignmentId, 3000),
       openedAt: Number.isNaN(openedAt.getTime()) ? new Date().toISOString() : openedAt.toISOString(),
+    };
+  }
+
+  const assignments = {};
+  const assignmentEntries = Object.entries(input.assignments || {}).slice(0, 500);
+  for (const [key, progress] of assignmentEntries) {
+    if (!progress || typeof progress !== "object" || Array.isArray(progress) || key.length > 3000) continue;
+    const level = Math.max(0, Math.min(5, Math.floor(Number(progress.level) || 0)));
+    if (!level) continue;
+    const reviewStep = Math.max(0, Math.min(10, Math.floor(Number(progress.reviewStep) || 0)));
+    const nextReview = progress.nextReviewAt ? new Date(progress.nextReviewAt) : null;
+    const updated = progress.updatedAt ? new Date(progress.updatedAt) : null;
+    const reviewedAt = Array.isArray(progress.reviewedAt)
+      ? progress.reviewedAt.slice(-20).map((value) => new Date(value)).filter((value) => !Number.isNaN(value.getTime())).map((value) => value.toISOString())
+      : [];
+    assignments[key] = {
+      level,
+      reviewStep,
+      nextReviewAt: nextReview && !Number.isNaN(nextReview.getTime()) ? nextReview.toISOString() : "",
+      reviewedAt,
+      updatedAt: updated && !Number.isNaN(updated.getTime()) ? updated.toISOString() : new Date().toISOString(),
     };
   }
 
   const requestedUpdatedAt = new Date(input.updatedAt);
   return {
-    version: 1,
+    version: 2,
     completed,
     completedWeeks,
     opened,
+    assignments,
     updatedAt: Number.isNaN(requestedUpdatedAt.getTime()) ? new Date().toISOString() : requestedUpdatedAt.toISOString(),
   };
 }
@@ -130,12 +154,12 @@ async function progressApi(request, env) {
       "SELECT payload, updated_at FROM progress_state WHERE id = ?"
     ).bind(1).first();
     if (!row) {
-      return jsonResponse({ version: 1, completed: {}, completedWeeks: {}, opened: {}, updatedAt: "" });
+      return jsonResponse({ version: 2, completed: {}, completedWeeks: {}, opened: {}, assignments: {}, updatedAt: "" });
     }
     try {
       const payload = JSON.parse(row.payload);
       payload.updatedAt = row.updated_at || payload.updatedAt || "";
-      return jsonResponse(payload);
+      return jsonResponse(normalizeProgress(payload));
     } catch {
       return jsonResponse({ error: "Stored progress is invalid" }, 500);
     }
@@ -224,6 +248,7 @@ export default {
       if (!(await isAuthorized(request, env))) return unauthorized();
       if (url.pathname.startsWith("/files/")) return servePdf(request, env);
       if (url.pathname === "/api/library") return serveAsset("/library-index.json", request, env);
+      if (url.pathname === "/api/search-index") return serveAsset("/page-index.json", request, env);
       if (url.pathname === "/api/study-path") return serveAsset("/study-path.json", request, env);
       if (url.pathname === "/api/progress") return progressApi(request, env);
       if (url.pathname.startsWith("/notes/")) {

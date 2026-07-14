@@ -24,6 +24,7 @@
       <aside class="sidebar">
         <button class="nav-button active" data-view="dashboard-view">⌂ <span>Dashboard</span></button>
         <button class="nav-button" data-view="path-view">◎ <span>Learning path</span></button>
+        <button class="nav-button" data-view="review-view">↻ <span>Review queue</span><b class="nav-count hidden" id="review-nav-count">0</b></button>
         <button class="nav-button" data-view="library-view">▤ <span>Library</span></button>
         <div class="sidebar-rule"></div>
         <div class="sidebar-label">Your loop</div>
@@ -52,7 +53,8 @@
 
           <div class="metric-grid">
             <div class="metric-card"><div class="metric-label">PDFs indexed</div><div class="metric-value" id="total-pdfs">—</div><div class="metric-note">books, guides, papers</div></div>
-            <div class="metric-card"><div class="metric-label">Marked complete</div><div class="metric-value" id="read-count">—</div><div class="metric-note" id="read-percent">Start with one</div></div>
+            <div class="metric-card"><div class="metric-label">Assignments read</div><div class="metric-value" id="read-count">—</div><div class="metric-note" id="read-percent">Start with one</div></div>
+            <div class="metric-card"><div class="metric-label">Reviews due</div><div class="metric-value" id="review-count">—</div><div class="metric-note" id="review-note">Nothing scheduled yet</div></div>
             <div class="metric-card"><div class="metric-label">Current week</div><div class="metric-value" id="current-week">1</div><div class="metric-note" id="current-week-title">Context inventory</div></div>
           </div>
 
@@ -61,6 +63,9 @@
 
           <div class="section-heading"><div><div class="eyebrow">RECENT READING</div><h2>Continue where you left off.</h2></div><button class="text-button" data-view-target="library-view">Open library →</button></div>
           <div class="recent-grid" id="recent-reading"><div class="loading">Nothing opened yet.</div></div>
+
+          <div class="section-heading"><div><div class="eyebrow">SPACED REVIEW</div><h2>Recall before you reread.</h2></div><button class="text-button" data-view-target="review-view">Open review queue →</button></div>
+          <div class="review-preview" id="review-preview"><div class="loading">Complete a reading assignment to schedule its first review.</div></div>
 
           <div class="section-heading"><div><div class="eyebrow">THE RULE</div><h2>Collect decisions, not notes.</h2></div></div>
           <div class="rule-grid">
@@ -83,9 +88,16 @@
           <div id="week-list" class="week-list"></div>
         </section>
 
+        <section class="view hidden" id="review-view">
+          <div class="page-heading"><div class="eyebrow">1 · 3 · 7 · 21 DAYS</div><h1>Spaced review queue</h1><p>Answer from memory first. Open the assigned pages only after you identify what you cannot explain or implement.</p></div>
+          <div class="review-summary" id="review-summary"></div>
+          <div id="review-list" class="review-list"><div class="loading">Loading your review schedule…</div></div>
+        </section>
+
         <section class="view hidden" id="library-view">
-          <div class="page-heading library-heading"><div><div class="eyebrow">108 CURATED PDFS</div><h1>Read from one place</h1><p>Search the private collection, open PDFs and rendered notes, and keep your reading history synced.</p></div><div class="library-shortcut"><span>⌘ K</span> search</div></div>
-          <div class="library-toolbar"><label class="search-box"><span>⌕</span><input id="library-search" type="search" placeholder="Search title, filename, or category…" autocomplete="off" /></label><select id="category-filter"><option value="all">All categories</option></select><select id="sort-filter"><option value="title">Sort: title</option><option value="pages">Sort: pages</option><option value="year">Sort: year</option></select></div>
+          <div class="page-heading library-heading"><div><div class="eyebrow">108 CURATED PDFS</div><h1>Read from one place</h1><p>Search concepts across cited PDF pages, open the exact match, and keep your reading history synced.</p></div><div class="library-shortcut"><span>⌘ K</span> page search</div></div>
+          <div class="library-toolbar"><label class="search-box"><span>⌕</span><input id="library-search" type="search" placeholder="Search a concept, title, filename, or category…" autocomplete="off" /></label><select id="category-filter"><option value="all">All categories</option></select><select id="sort-filter"><option value="title">Sort: title</option><option value="pages">Sort: pages</option><option value="year">Sort: year</option></select></div>
+          <div class="search-status" id="search-status">Type two or more characters to search cited pages across the full library.</div>
           <div class="library-layout"><div id="resource-list" class="resource-list"><div class="loading">Indexing the library…</div></div><div class="reader-panel"><div class="reader-toolbar"><div><div class="reader-kicker">READER</div><div class="reader-title" id="reader-title">Choose a resource</div></div><div class="reader-actions"><button class="ghost-button" id="mark-complete" disabled>Mark complete</button><button class="ghost-button" id="open-new-tab" disabled>Open tab ↗</button></div></div><div class="reader-keybar hidden" id="reader-keys"></div><div class="reader-body" id="reader-body"><div class="reader-empty"><div class="reader-icon">◫</div><h2>Your focused reading desk</h2><p>Pick a PDF, rendered note, or week resource. Opened items and completions are saved privately.</p></div></div></div></div>
         </section>
       </main>

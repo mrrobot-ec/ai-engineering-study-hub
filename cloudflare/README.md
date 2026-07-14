@@ -4,6 +4,8 @@ This directory deploys the Study Hub UI to Cloudflare Pages and serves the local
 policy-audited PDFs from a private R2 bucket. The repository never contains the PDF
 corpus. The Pages Worker uses HTTP Basic Authentication before serving any route and
 stores private reading history, including the last key page or section opened, in D1.
+Assignment mastery and the 1/3/7/21-day review schedule live in the same versioned D1
+progress payload, so this release needs no database migration.
 
 Production URL: https://ai-engineering-study-hub.pages.dev
 
@@ -18,8 +20,10 @@ From the library root:
 python3 cloudflare/generate-assets.py
 ```
 
-This copies the UI, emits a metadata index, and includes only personal library notes.
-It deliberately omits workspace notes from the employer service repository.
+This copies the UI, emits the document metadata and compact page-search indexes, and
+includes only personal library notes. The page index is loaded lazily by the browser
+only after a search begins. The build deliberately omits workspace notes from the
+employer service repository.
 
 ## One-time Cloudflare setup
 

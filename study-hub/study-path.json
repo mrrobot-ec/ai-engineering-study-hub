@@ -8,6 +8,107 @@
     "reference": {"label": "Reference", "description": "Search or consult this when the project exposes a gap."},
     "frontier": {"label": "Frontier", "description": "Optional advanced material after the project baseline works."}
   },
+  "learningModel": {
+    "reviewIntervalsDays": [1, 3, 7, 21],
+    "requiredRoles": ["start", "build"],
+    "estimatedMinutesByRole": {
+      "start": 35,
+      "build": 40,
+      "deep": 45,
+      "reference": 20,
+      "frontier": 30
+    },
+    "masteryLevels": [
+      {"level": 0, "label": "Not started", "shortLabel": "Not started"},
+      {"level": 1, "label": "Read it", "shortLabel": "Read"},
+      {"level": 2, "label": "Understand it", "shortLabel": "Understand"},
+      {"level": 3, "label": "Can explain it", "shortLabel": "Explain"},
+      {"level": 4, "label": "Can implement it", "shortLabel": "Implement"},
+      {"level": 5, "label": "Can debug it", "shortLabel": "Debug"}
+    ]
+  },
+  "weekQuestions": {
+    "1": [
+      "What context sources exist, and which one is authoritative for each fact?",
+      "How will you measure whether selected context improved the answer?",
+      "What happens when context is stale, contradictory, oversized, or unauthorized?"
+    ],
+    "2": [
+      "What state must survive a process restart?",
+      "Which node boundaries are safe replay points?",
+      "How do checkpoints differ from cross-thread memory?"
+    ],
+    "3": [
+      "Which actions require deterministic authorization outside model text?",
+      "How can retries repeat a side effect?",
+      "Where should approval, idempotency, and least privilege be enforced?"
+    ],
+    "4": [
+      "What user-visible behavior is the evaluation trying to protect?",
+      "How will you validate a model grader against human labels?",
+      "Which release failures should block deployment?"
+    ],
+    "5": [
+      "Who owns state, retries, tools, and traces in each framework?",
+      "Which abstractions hide failure behavior?",
+      "Can the same workflow restart without repeating its write?"
+    ],
+    "6": [
+      "Where can Kafka deliver an event more than once?",
+      "What is ordered, and within which boundary?",
+      "How will the consumer recover from poison messages and rebalances?"
+    ],
+    "7": [
+      "Which datastore is authoritative for each piece of state?",
+      "What race exists between checking and writing?",
+      "How do transactions, unique constraints, leases, and fencing change the outcome?"
+    ],
+    "8": [
+      "Which workflow code must be deterministic?",
+      "Which operations belong in retryable activities?",
+      "How will a deploy or crash resume without duplicating external effects?"
+    ],
+    "9": [
+      "What counts as an exposure, outcome, and negative signal?",
+      "How will point-in-time correctness prevent leakage?",
+      "Which contract lets offline evaluation match online behavior?"
+    ],
+    "10": [
+      "Which candidate sources improve coverage rather than duplicate one another?",
+      "How will you measure recall and latency per source?",
+      "What sampling or popularity bias enters the retrieval model?"
+    ],
+    "11": [
+      "What objective should the ranker optimize?",
+      "Which policy constraints belong in reranking?",
+      "How will you measure calibration, diversity, and performance by slice?"
+    ],
+    "12": [
+      "How quickly must new interactions affect recommendations?",
+      "What state can be stale without harming correctness?",
+      "How will online updates recover after partial failure?"
+    ],
+    "13": [
+      "What does a generative recommender improve over retrieve-and-rank?",
+      "Which latency, controllability, and evaluation costs does it introduce?",
+      "What baseline must it beat before adoption?"
+    ],
+    "14": [
+      "Which failures violate an invariant rather than only reduce availability?",
+      "What evidence proves the system recovered correctly?",
+      "Which alert, runbook, and reconciliation path handles each injected fault?"
+    ],
+    "15": [
+      "Can one trace explain context, retrieval, model, event, and side-effect decisions?",
+      "What SLO represents successful user outcomes rather than component uptime?",
+      "How will you canary, roll back, and reconcile the integrated slice?"
+    ],
+    "16": [
+      "Which decisions demonstrate scope beyond writing code?",
+      "Can another engineer operate the system from your design and runbook?",
+      "What evidence shows reliability, business impact, and improved team capability?"
+    ]
+  },
   "documentKeys": {
     "note:JOB-ALIGNED-LEARNING-PATH.md": [
       {"label": "Target skill profile", "heading": "The target skill profile"},
@@ -270,7 +371,7 @@
         "acceptance": ["Run 30–50 golden conversations", "Produce a per-turn context ledger", "Write a failure report for stale, conflicting, and unauthorized context"]
       },
       "resources": [
-        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start"},
+        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start", "assignedKeys": [0, 1]},
         {"label": "Context rearchitecture design", "kind": "note", "path": "workspace/agent-context-rearchitecture-design.md", "role": "build"},
         {"label": "Agentic context engineering", "kind": "pdf", "path": "papers/context-memory/2025-agentic-context-engineering.pdf", "role": "deep"},
         {"label": "LangChain context engineering", "kind": "external", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering", "role": "build"}
@@ -411,7 +512,7 @@
         "acceptance": ["Add an automated leakage test", "Represent delayed and negative feedback", "Rebuild the same training snapshot reproducibly"]
       },
       "resources": [
-        {"label": "Recommender book audit", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md", "role": "start"},
+        {"label": "Recommender book audit", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md", "role": "start", "assignedKeys": [0, 1]},
         {"label": "Google recommendation course", "kind": "external", "url": "https://developers.google.com/machine-learning/recommendation", "role": "build"},
         {"label": "Information Retrieval", "kind": "pdf", "path": "books/introduction-to-information-retrieval.pdf", "role": "reference"}
       ]
@@ -447,7 +548,7 @@
       "resources": [
         {"label": "Wide & Deep", "kind": "pdf", "path": "papers/recommender-systems/2016-wide-and-deep.pdf", "role": "start"},
         {"label": "DCN V2", "kind": "pdf", "path": "papers/recommender-systems/2020-dcn-v2.pdf", "role": "deep"},
-        {"label": "Aggarwal chapter guidance", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md", "role": "reference"}
+        {"label": "Aggarwal chapter guidance", "kind": "note", "path": "RECOMMENDER-SYSTEMS-BOOK-AUDIT.md", "role": "reference", "assignedKeys": [2]}
       ]
     },
     {
@@ -512,7 +613,7 @@
         "acceptance": ["Capture end-to-end traces", "Pass golden and failure-path tests", "Expose cost, latency, quality, and rollout controls"]
       },
       "resources": [
-        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start"},
+        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start", "assignedKeys": [2, 3]},
         {"label": "Production MLOps guide", "kind": "pdf", "path": "guides/production/2021-google-practitioners-guide-to-mlops.pdf", "role": "build"},
         {"label": "NIST GenAI profile", "kind": "pdf", "path": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf", "role": "reference"}
       ]

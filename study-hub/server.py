@@ -22,6 +22,7 @@ HUB_ROOT = Path(__file__).resolve().parent
 LIBRARY_ROOT = HUB_ROOT.parent
 STATIC_ROOT = HUB_ROOT / "static"
 PATH_FILE = HUB_ROOT / "study-path.json"
+PAGE_INDEX_FILE = LIBRARY_ROOT / "cloudflare" / "site" / "page-index.json"
 PDF_ROOTS = {"books", "guides", "papers"}
 SERVICE_ROOT = LIBRARY_ROOT.parent / "series" / "series-agent-service"
 NOTE_PATHS = {
@@ -220,6 +221,9 @@ class StudyHubHandler(BaseHTTPRequestHandler):
             return
         if route == "/api/study-path":
             self.send_json(self.study_path)
+            return
+        if route == "/api/search-index":
+            self.send_static(PAGE_INDEX_FILE)
             return
         if route == "/api/health":
             self.send_json({"ok": True, "pdfs": len(self.library_index)})

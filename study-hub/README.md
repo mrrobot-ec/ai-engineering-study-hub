@@ -3,8 +3,9 @@
 This is the study dashboard for the library. It keeps the PDFs in their existing
 directories, indexes them on startup, renders PDFs and Markdown inside one reader, and
 adds a build project to every learning-path topic. The hosted private version syncs
-opened resources, completions, and completed projects to Cloudflare D1. Local mode
-falls back to browser `localStorage` and uploads no study data.
+opened resources, assignment mastery, spaced reviews, and completed projects to
+Cloudflare D1. Local mode falls back to browser `localStorage` and uploads no study
+data.
 
 ## Start it
 
@@ -24,15 +25,20 @@ copying them into a generated site. The workspace-note links assume the library 
 1. Open **Learning path** and choose the current week.
 2. Follow the resource label: **Start here** first, keep **Build with this** open
    while coding, and use **Deep dive**, **Reference**, or **Frontier** only when needed.
-3. Use the **Key sections** buttons to jump directly to the relevant PDF page,
-   Markdown heading, documentation section, or source directory.
+3. Open the weekly assignment to jump directly to its specific PDF pages, Markdown
+   headings, documentation sections, or source directories. A document can return in
+   a later week with a different assigned section.
 4. Build the smallest version in the service or a scratch project.
 5. Inject a failure and measure the result.
-6. Mark the resource and project complete only after meeting its acceptance criteria
-   and writing the trade-off.
+6. Set mastery honestly: read, understand, explain, implement, or debug. Mark the
+   project complete only after meeting its acceptance criteria and writing the trade-off.
+7. Use the review queue after 1, 3, 7, and 21 days. Answer from memory before reopening
+   the source.
 
-Use `Cmd/Ctrl-K` to jump to library search. The **Library** view searches the 108
-curated PDFs by title, filename, and category. Markdown notes render as formatted
+Use `Cmd/Ctrl-K` to jump to library search. The **Library** view lazily searches a
+private offline index of 13,000+ cited PDF pages and opens the exact matching page.
+The index is generated locally from compact keywords and short snippets; no document
+content is sent to an external search provider. Markdown notes render as formatted
 documents instead of source text. **Open tab** is useful for keeping a paper and your
 code side by side.
 
