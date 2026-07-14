@@ -6,6 +6,7 @@
     <title>AI Systems Study Hub</title>
     <link rel="stylesheet" href="/static/styles.css" />
     <script src="/static/marked.umd.js"></script>
+    <script src="/static/labs.js" defer></script>
     <script src="/static/app.js" defer></script>
   </head>
   <body>
@@ -25,13 +26,14 @@
         <button class="nav-button active" data-view="dashboard-view">⌂ <span>Dashboard</span></button>
         <button class="nav-button" data-view="path-view">◎ <span>Learning path</span></button>
         <button class="nav-button" data-view="review-view">↻ <span>Review queue</span><b class="nav-count hidden" id="review-nav-count">0</b></button>
+        <button class="nav-button" data-view="labs-view">◇ <span>Microworlds</span></button>
         <button class="nav-button" data-view="library-view">▤ <span>Library</span></button>
         <div class="sidebar-rule"></div>
         <div class="sidebar-label">Your loop</div>
         <div class="loop-step"><span>01</span> Read one mechanism</div>
-        <div class="loop-step"><span>02</span> Build the smallest version</div>
-        <div class="loop-step"><span>03</span> Break and measure it</div>
-        <div class="loop-step"><span>04</span> Write the trade-off</div>
+        <div class="loop-step"><span>02</span> Recall without looking</div>
+        <div class="loop-step"><span>03</span> Explain and build it</div>
+        <div class="loop-step"><span>04</span> Break and debug it</div>
         <div class="sidebar-footer">Reading history and completion sync privately across your devices.</div>
       </aside>
 
@@ -94,6 +96,11 @@
           <div id="review-list" class="review-list"><div class="loading">Loading your review schedule…</div></div>
         </section>
 
+        <section class="view hidden" id="labs-view">
+          <div class="page-heading"><div class="eyebrow">LEARN BY MANIPULATING THE SYSTEM</div><h1>Microworlds</h1><p>Change one assumption at a time. Watch the system respond, predict the failure, then carry that intuition into the weekly project.</p></div>
+          <div class="labs-index" id="labs-index"></div>
+        </section>
+
         <section class="view hidden" id="library-view">
           <div class="page-heading library-heading"><div><div class="eyebrow">108 CURATED PDFS</div><h1>Read from one place</h1><p>Search concepts across cited PDF pages, open the exact match, and keep your reading history synced.</p></div><div class="library-shortcut"><span>⌘ K</span> page search</div></div>
           <div class="library-toolbar"><label class="search-box"><span>⌕</span><input id="library-search" type="search" placeholder="Search a concept, title, filename, or category…" autocomplete="off" /></label><select id="category-filter"><option value="all">All categories</option></select><select id="sort-filter"><option value="title">Sort: title</option><option value="pages">Sort: pages</option><option value="year">Sort: year</option></select></div>
@@ -101,6 +108,17 @@
           <div class="library-layout"><div id="resource-list" class="resource-list"><div class="loading">Indexing the library…</div></div><div class="reader-panel"><div class="reader-toolbar"><div><div class="reader-kicker">READER</div><div class="reader-title" id="reader-title">Choose a resource</div></div><div class="reader-actions"><button class="ghost-button" id="mark-complete" disabled>Mark complete</button><button class="ghost-button" id="open-new-tab" disabled>Open tab ↗</button></div></div><div class="reader-course-nav hidden" id="reader-course-nav"><button class="lesson-nav-button previous" id="previous-assignment" disabled><span>← Back</span><small id="previous-assignment-label">Start of path</small></button><button class="lesson-position" id="return-to-path"><strong id="assignment-position">Learning path</strong><small>View all lessons</small></button><button class="lesson-nav-button next" id="next-assignment" disabled><span>Next →</span><small id="next-assignment-label">End of path</small></button></div><div class="reader-keybar hidden" id="reader-keys"></div><div class="reader-body" id="reader-body"><div class="reader-empty"><div class="reader-icon">◫</div><h2>Your focused reading desk</h2><p>Pick a PDF, rendered note, or week resource. Opened items and completions are saved privately.</p></div></div></div></div>
         </section>
       </main>
+    </div>
+    <div class="studio-backdrop hidden" id="understanding-studio">
+      <section class="understanding-studio" role="dialog" aria-modal="true" aria-labelledby="studio-title">
+        <header class="studio-header"><div><div class="eyebrow" id="studio-week">EVIDENCE CHECKPOINT</div><h2 id="studio-title">Check your understanding</h2><p id="studio-subtitle"></p></div><button class="ghost-button" id="close-studio" aria-label="Close understanding checkpoint">Close</button></header>
+        <div class="evidence-ladder" id="evidence-ladder" aria-label="Evidence mastery levels"></div>
+        <div class="studio-section"><div class="studio-section-heading"><div><span>01</span><h3>Recall without reopening the source</h3></div><p>Answer first, then judge yourself honestly.</p></div><div id="checkpoint-questions" class="checkpoint-questions"></div></div>
+        <div class="studio-section"><div class="studio-section-heading"><div><span>02</span><h3>Teach it back</h3></div><p>Explain the mechanism, assumptions, and one trade-off in your own words.</p></div><textarea id="teach-back" rows="6" maxlength="2500" placeholder="Teach this lesson to another engineer without copying the source…"></textarea><div class="studio-counter"><span id="teach-back-count">0 words</span><span>60 words unlocks “Can explain it” after the recall check passes.</span></div></div>
+        <div class="studio-section"><div class="studio-section-heading"><div><span>03</span><h3>Fault evidence</h3></div><p id="fault-prompt"></p></div><textarea id="fault-reflection" rows="4" maxlength="1500" placeholder="Describe the fault you injected, the invariant, what you observed, and the fix…"></textarea><label class="fault-confirm"><input id="fault-tested" type="checkbox"/><span>I actually ran this failure against the week project.</span></label><div class="studio-counter"><span id="fault-count">0 words</span><span>Requires the completed project and all earlier evidence.</span></div></div>
+        <div class="studio-message" id="studio-message" role="status"></div>
+        <footer class="studio-actions"><button class="ghost-button hidden" id="skip-checkpoint">Skip for now</button><button class="ghost-button" id="open-studio-source">Reopen assigned section</button><button class="primary-button" id="save-evidence">Save evidence</button><button class="primary-button hidden" id="continue-next">Continue to next lesson →</button></footer>
+      </section>
     </div>
   </body>
 </html>

@@ -25,6 +25,8 @@ const state = {
   opened: readLocalJson(LOCAL_KEYS.opened),
   assignmentProgress: readLocalJson(LOCAL_KEYS.assignments),
   activeAssignmentId: "",
+  studioAssignmentId: "",
+  pendingNextAssignmentId: "",
   pageIndex: null,
   pageIndexPromise: null,
   searchStatus: "idle",
@@ -104,7 +106,78 @@ function allAssignments() {
 }
 
 function assignmentProgress(assignment) {
-  return state.assignmentProgress[assignment.id] || { level: 0, reviewStep: 0, nextReviewAt: "", reviewedAt: [] };
+  return state.assignmentProgress[assignment.id] || {
+    evidenceVersion: 1,
+    level: 0,
+    reviewStep: 0,
+    nextReviewAt: "",
+    reviewedAt: [],
+    checkpointStatus: "",
+    checkpointAnswers: [],
+    failedPrompts: [],
+    teachBack: "",
+    faultReflection: "",
+    faultTested: false
+  };
+}
+
+function wordCount(value) {
+  return String(value || "").trim().split(/\s+/).filter(Boolean).length;
+}
+
+function assignmentWeek(assignment) {
+  return (state.studyPath?.weeks || []).find((week) => Number(week.week) === Number(assignment.week)) || null;
+}
+
+function lessonCheckpointQuestions(assignment) {
+  const week = assignmentWeek(assignment);
+  const assignmentsInWeek = (week?.resources || []).map((resource) => buildAssignment(week, resource));
+  const lessonIndex = Math.max(0, assignmentsInWeek.findIndex((candidate) => candidate.id === assignment.id));
+  const weekQuestions = assignment.questions || [];
+  const sectionNames = assignment.segments.map((segment) => segment.label).join(", ") || assignmentLabel(assignment);
+  const acceptance = week?.project?.acceptance || [];
+  return [
+    {
+      id: "mechanism",
+      prompt: `Without reopening the source, explain the core mechanism in “${sectionNames}”. What state or information moves, and why?`,
+      guide: `Look for a mechanism, its inputs and outputs, and an explicit connection to: ${assignment.why}`
+    },
+    {
+      id: "week-question",
+      prompt: weekQuestions[lessonIndex % Math.max(1, weekQuestions.length)] || `What assumption in ${assignmentLabel(assignment)} is easiest to violate?`,
+      guide: `A strong answer names an assumption, a boundary where it can fail, and observable evidence—not only a definition.`
+    },
+    {
+      id: "apply",
+      prompt: `How should this lesson change one decision in the “${week?.project?.title || assignment.weekTitle}” project? Name one failure it should prevent.`,
+      guide: acceptance.length ? `Connect the answer to at least one project test: ${acceptance.join("; ")}` : `Name the design decision, the failure, and the measurement that would expose it.`
+    }
+  ];
+}
+
+function derivedEvidenceLevel(assignment, progress = assignmentProgress(assignment)) {
+  const read = Boolean(progress.readAt) || Number(progress.level || 0) >= 1;
+  if (!read) return 0;
+  if (progress.checkpointStatus !== "passed") return 1;
+  if (wordCount(progress.teachBack) < 60) return 2;
+  if (!state.completedWeeks[String(assignment.week)]) return 3;
+  if (!progress.faultTested || wordCount(progress.faultReflection) < 40) return 4;
+  return 5;
+}
+
+function refreshEvidenceLevels() {
+  let changed = false;
+  for (const assignment of allAssignments()) {
+    const progress = state.assignmentProgress[assignment.id];
+    if (!progress) continue;
+    const level = derivedEvidenceLevel(assignment, progress);
+    if (Number(progress.level || 0) !== level) {
+      progress.level = level;
+      progress.updatedAt = new Date().toISOString();
+      changed = true;
+    }
+  }
+  return changed;
 }
 
 function isAssignmentRead(assignment) {
@@ -181,7 +254,7 @@ function persistLocalProgress() {
 
 function progressSnapshot() {
   return {
-    version: 2,
+    version: 3,
     completed: state.completed,
     completedWeeks: state.completedWeeks,
     opened: state.opened,
@@ -271,6 +344,7 @@ function toggleWeek(number) {
   const key = String(number);
   state.completedWeeks[key] = !state.completedWeeks[key];
   if (!state.completedWeeks[key]) delete state.completedWeeks[key];
+  refreshEvidenceLevels();
   saveProgress();
   renderAll();
 }
@@ -283,20 +357,20 @@ function scheduleReview(progress, step = 0) {
   return date.toISOString();
 }
 
-function setAssignmentMastery(assignmentId, level) {
-  const numericLevel = Math.max(0, Math.min(5, Number(level) || 0));
+function markAssignmentRead(assignmentId) {
+  const assignment = allAssignments().find((candidate) => candidate.id === assignmentId);
+  if (!assignment) return;
   const previous = state.assignmentProgress[assignmentId] || {};
-  if (numericLevel === 0) {
-    delete state.assignmentProgress[assignmentId];
-  } else {
-    state.assignmentProgress[assignmentId] = {
-      level: numericLevel,
-      reviewStep: Number(previous.reviewStep || 0),
-      nextReviewAt: previous.nextReviewAt || scheduleReview({}, 0),
-      reviewedAt: Array.isArray(previous.reviewedAt) ? previous.reviewedAt : [],
-      updatedAt: new Date().toISOString()
-    };
-  }
+  state.assignmentProgress[assignmentId] = {
+    evidenceVersion: 1,
+    ...previous,
+    readAt: previous.readAt || new Date().toISOString(),
+    reviewStep: Number(previous.reviewStep || 0),
+    nextReviewAt: previous.nextReviewAt || scheduleReview({}, 0),
+    reviewedAt: Array.isArray(previous.reviewedAt) ? previous.reviewedAt : [],
+    updatedAt: new Date().toISOString()
+  };
+  state.assignmentProgress[assignmentId].level = derivedEvidenceLevel(assignment, state.assignmentProgress[assignmentId]);
   saveProgress();
   renderAll();
 }
@@ -318,15 +392,41 @@ function completeAssignmentReview(assignmentId) {
 }
 
 function migrateLegacyProgress() {
-  if (Object.keys(state.assignmentProgress).length || !Object.keys(state.completed).length) return false;
   let migrated = false;
+  for (const assignment of allAssignments()) {
+    const progress = state.assignmentProgress[assignment.id];
+    if (!progress || Number(progress.evidenceVersion || 0) >= 1) continue;
+    state.assignmentProgress[assignment.id] = {
+      ...progress,
+      evidenceVersion: 1,
+      readAt: Number(progress.level || 0) >= 1 ? (progress.updatedAt || new Date().toISOString()) : "",
+      checkpointStatus: "",
+      checkpointAnswers: [],
+      failedPrompts: [],
+      teachBack: "",
+      faultReflection: "",
+      faultTested: false,
+      level: Number(progress.level || 0) >= 1 ? 1 : 0,
+      updatedAt: new Date().toISOString()
+    };
+    migrated = true;
+  }
+  if (Object.keys(state.assignmentProgress).length || !Object.keys(state.completed).length) return migrated;
   for (const assignment of allAssignments()) {
     if (!state.completed[resourceKey(assignment.resource)]) continue;
     state.assignmentProgress[assignment.id] = {
+      evidenceVersion: 1,
       level: 1,
+      readAt: new Date().toISOString(),
       reviewStep: 0,
       nextReviewAt: scheduleReview({}, 0),
       reviewedAt: [],
+      checkpointStatus: "",
+      checkpointAnswers: [],
+      failedPrompts: [],
+      teachBack: "",
+      faultReflection: "",
+      faultTested: false,
       updatedAt: new Date().toISOString()
     };
     migrated = true;
@@ -415,6 +515,120 @@ function assignmentLabel(assignment) {
   return assignment?.resource?.label || assignment?.resource?.title || "Lesson";
 }
 
+function evidenceLadderMarkup(level) {
+  const requirements = ["Start", "Read", "Recall", "Explain", "Build", "Debug"];
+  return requirements.map((label, index) => `<span class="${index <= level ? "reached" : ""} ${index === level ? "current" : ""}"><b>${index}</b>${label}</span>`).join("");
+}
+
+function studioAssignment() {
+  return allAssignments().find((assignment) => assignment.id === state.studioAssignmentId) || null;
+}
+
+function closeUnderstandingStudio() {
+  $("#understanding-studio").classList.add("hidden");
+  state.studioAssignmentId = "";
+  state.pendingNextAssignmentId = "";
+}
+
+function updateStudioCounters() {
+  $("#teach-back-count").textContent = `${wordCount($("#teach-back").value)} words`;
+  $("#fault-count").textContent = `${wordCount($("#fault-reflection").value)} words`;
+}
+
+function renderUnderstandingStudio() {
+  const assignment = studioAssignment();
+  if (!assignment) return;
+  const progress = assignmentProgress(assignment);
+  const questions = lessonCheckpointQuestions(assignment);
+  const answers = new Map((progress.checkpointAnswers || []).map((answer) => [answer.id, answer]));
+  const level = derivedEvidenceLevel(assignment, progress);
+  $("#studio-week").textContent = `WEEK ${assignment.week} · EVIDENCE CHECKPOINT`;
+  $("#studio-title").textContent = assignmentLabel(assignment);
+  $("#studio-subtitle").textContent = `${assignmentLocation(assignment)} · answer from memory before reopening the source`;
+  $("#evidence-ladder").innerHTML = evidenceLadderMarkup(level);
+  $("#checkpoint-questions").innerHTML = questions.map((question, index) => {
+    const answer = answers.get(question.id) || {};
+    return `<article class="checkpoint-question"><label><span>Question ${index + 1}</span>${escapeHtml(question.prompt)}<textarea rows="3" maxlength="900" data-check-response="${question.id}" placeholder="Answer from memory…">${escapeHtml(answer.response || "")}</textarea></label><details><summary>Reveal the self-check guide</summary><p>${escapeHtml(question.guide)}</p></details><label class="self-assessment">My assessment<select data-check-result="${question.id}"><option value="">Choose honestly…</option><option value="passed" ${answer.result === "passed" ? "selected" : ""}>I got it</option><option value="review" ${answer.result === "review" ? "selected" : ""}>Needs review</option></select></label></article>`;
+  }).join("");
+  $("#teach-back").value = progress.teachBack || "";
+  $("#fault-reflection").value = progress.faultReflection || "";
+  $("#fault-tested").checked = Boolean(progress.faultTested);
+  $("#fault-prompt").textContent = assignment.questions?.[2] || `Inject one failure related to ${assignment.weekTitle}. What invariant should survive?`;
+  $("#studio-message").textContent = "";
+  $("#studio-message").className = "studio-message";
+  $("#skip-checkpoint").classList.toggle("hidden", !state.pendingNextAssignmentId);
+  $("#continue-next").classList.add("hidden");
+  updateStudioCounters();
+}
+
+function openUnderstandingStudio(assignment, pendingNext = null) {
+  if (!assignment) return;
+  state.studioAssignmentId = assignment.id;
+  state.pendingNextAssignmentId = pendingNext?.id || "";
+  renderUnderstandingStudio();
+  $("#understanding-studio").classList.remove("hidden");
+  window.requestAnimationFrame(() => $("#checkpoint-questions textarea")?.focus());
+}
+
+function saveStudioEvidence() {
+  const assignment = studioAssignment();
+  if (!assignment) return;
+  const questions = lessonCheckpointQuestions(assignment);
+  const answers = questions.map((question) => ({
+    id: question.id,
+    prompt: question.prompt,
+    response: $(`[data-check-response="${question.id}"]`).value.trim().slice(0, 900),
+    result: $(`[data-check-result="${question.id}"]`).value
+  }));
+  const incomplete = answers.some((answer) => wordCount(answer.response) < 8 || !answer.result);
+  if (incomplete) {
+    $("#studio-message").className = "studio-message error";
+    $("#studio-message").textContent = "Answer every question with at least eight words and assess it as “I got it” or “Needs review”.";
+    return;
+  }
+  const previous = state.assignmentProgress[assignment.id] || {};
+  const now = new Date().toISOString();
+  const failedPrompts = answers.filter((answer) => answer.result === "review").map((answer) => answer.prompt);
+  const allPassed = failedPrompts.length === 0;
+  const progress = {
+    ...previous,
+    evidenceVersion: 1,
+    readAt: previous.readAt || now,
+    reviewStep: Number(previous.reviewStep || 0),
+    reviewedAt: Array.isArray(previous.reviewedAt) ? previous.reviewedAt : [],
+    checkpointStatus: allPassed ? "passed" : "review",
+    checkpointAnswers: answers,
+    failedPrompts,
+    teachBack: $("#teach-back").value.trim().slice(0, 2500),
+    faultReflection: $("#fault-reflection").value.trim().slice(0, 1500),
+    faultTested: $("#fault-tested").checked,
+    nextReviewAt: allPassed ? (previous.nextReviewAt || scheduleReview({}, 0)) : now,
+    updatedAt: now
+  };
+  progress.level = derivedEvidenceLevel(assignment, progress);
+  state.assignmentProgress[assignment.id] = progress;
+  saveProgress();
+  renderAll();
+  renderUnderstandingStudio();
+  $("#studio-message").className = `studio-message ${allPassed ? "success" : "review"}`;
+  $("#studio-message").textContent = allPassed
+    ? `Checkpoint passed. Evidence level: ${masteryInfo(progress.level).label}.`
+    : `${failedPrompts.length} question${failedPrompts.length === 1 ? "" : "s"} added to the review queue now.`;
+  $("#skip-checkpoint").classList.add("hidden");
+  $("#continue-next").classList.toggle("hidden", !state.pendingNextAssignmentId);
+}
+
+function continueFromStudio() {
+  const next = allAssignments().find((assignment) => assignment.id === state.pendingNextAssignmentId) || null;
+  closeUnderstandingStudio();
+  if (next) openAssignment(next);
+}
+
+function openMicroworld(id) {
+  showView("labs-view");
+  window.requestAnimationFrame(() => document.querySelector(`#lab-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+}
+
 function returnToLearningPath(assignment) {
   showView("path-view");
   if (!assignment) return;
@@ -450,7 +664,11 @@ function renderReaderNavigation(assignment = null) {
   previousButton.title = previous ? `Open previous lesson: ${assignmentLabel(previous)}` : "This is the first lesson";
   nextButton.title = next ? `Open next lesson: ${assignmentLabel(next)}` : "This is the final lesson";
   previousButton.onclick = previous ? () => openAssignment(previous) : null;
-  nextButton.onclick = next ? () => openAssignment(next) : null;
+  nextButton.onclick = next ? () => {
+    const progress = assignmentProgress(assignment);
+    if (progress.checkpointStatus === "passed") openAssignment(next);
+    else openUnderstandingStudio(assignment, next);
+  } : null;
   $("#return-to-path").onclick = () => returnToLearningPath(assignment);
 }
 
@@ -469,6 +687,7 @@ function showView(viewId) {
   if (viewId === "library-view") renderLibrary();
   if (viewId === "path-view") renderPath();
   if (viewId === "review-view") renderReview();
+  if (viewId === "labs-view") renderMicroworlds($("#labs-index"));
 }
 
 function renderRecentReading() {
@@ -502,13 +721,15 @@ function renderRecentReading() {
 function reviewCardMarkup(entry, compact = false) {
   const { assignment, progress } = entry;
   const due = isReviewDue(progress);
-  const questions = compact ? assignment.questions.slice(0, 1) : assignment.questions;
+  const recall = progress.failedPrompts?.length ? progress.failedPrompts : assignment.questions;
+  const questions = compact ? recall.slice(0, 1) : recall;
   return `<article class="review-card ${due ? "due" : "upcoming"}">
     <div class="review-card-top"><span class="review-week">W${String(assignment.week).padStart(2, "0")}</span><span class="review-due">${escapeHtml(formatDueDate(progress.nextReviewAt))}</span></div>
     <h3>${escapeHtml(assignment.resource.label || assignment.resource.title)}</h3>
     <p class="review-location">${escapeHtml(assignmentLocation(assignment))} · ${escapeHtml(masteryInfo(progress.level).label)}</p>
     ${questions.length ? `<div class="recall-prompts"><span>Recall without opening</span><ul>${questions.map((question) => `<li>${escapeHtml(question)}</li>`).join("")}</ul></div>` : ""}
     <div class="review-actions">
+      <button class="ghost-button" data-open-studio="${escapeHtml(assignment.id)}">Retry checkpoint</button>
       <button class="ghost-button" data-open-assignment="${escapeHtml(assignment.id)}">Open assigned section</button>
       ${due ? `<button class="primary-button small" data-review-complete="${escapeHtml(assignment.id)}">I reviewed it</button>` : ""}
     </div>
@@ -525,6 +746,9 @@ function attachReviewHandlers(container) {
   });
   container.querySelectorAll("[data-review-complete]").forEach((button) => {
     button.addEventListener("click", () => completeAssignmentReview(button.dataset.reviewComplete));
+  });
+  container.querySelectorAll("[data-open-studio]").forEach((button) => {
+    button.addEventListener("click", () => openUnderstandingStudio(assignments.get(button.dataset.openStudio)));
   });
 }
 
@@ -589,6 +813,7 @@ function renderPath() {
   if (!weeks.length) { container.innerHTML = '<div class="loading">Loading path…</div>'; return; }
   container.innerHTML = weeks.map((week) => {
     const weekDone = Boolean(state.completedWeeks[String(week.week)]);
+    const lab = typeof MICROWORLDS === "undefined" ? null : MICROWORLDS.find((candidate) => Number(candidate.week) === Number(week.week));
     const resources = week.resources.map((resource) => {
       const assignment = buildAssignment(week, resource);
       const progress = assignmentProgress(assignment);
@@ -603,7 +828,7 @@ function renderPath() {
         <div class="assignment-meta"><span>${escapeHtml(assignmentRequirement(assignment))}</span><span>${assignment.minutes} min</span><span>${escapeHtml(assignmentLocation(assignment))}</span></div>
         <p class="assignment-why">${escapeHtml(assignment.why)}</p>
         <div class="resource-key-list"><span class="key-label">Read only</span>${segments || '<span class="assignment-as-needed">Use this while building</span>'}</div>
-        <label class="mastery-control">Mastery<select data-assignment-mastery="${escapeHtml(assignment.id)}">${masteryOptions(progress.level)}</select></label>
+        <button class="evidence-button" data-open-studio="${escapeHtml(assignment.id)}"><span>Evidence level</span><strong>${escapeHtml(masteryInfo(progress.level).label)}</strong><small>${progress.checkpointStatus === "review" ? "Review needed now" : "Open understanding studio"}</small></button>
       </article>`;
     }).join("");
     const project = week.project || { title: week.title, summary: week.deliverable, acceptance: [] };
@@ -614,7 +839,7 @@ function renderPath() {
       <div><h3>${escapeHtml(week.title)}</h3><p>${escapeHtml(week.goal)}</p></div>
       <div class="week-deliverable"><label>Deliverable · ${escapeHtml(week.time)}</label><p>${escapeHtml(week.deliverable)}</p></div>
       ${questions.length ? `<details class="week-questions"><summary>Questions to answer before you move on</summary><ol>${questions.map((question) => `<li>${escapeHtml(question)}</li>`).join("")}</ol></details>` : ""}
-      <div class="week-project"><div><label>Build project</label><h4>${escapeHtml(project.title)}</h4><p>${escapeHtml(project.summary)}</p></div>${acceptance ? `<ul>${acceptance}</ul>` : ""}</div>
+      <div class="week-project"><div><label>Build project</label><h4>${escapeHtml(project.title)}</h4><p>${escapeHtml(project.summary)}</p>${lab ? `<button class="ghost-button lab-launch" data-open-lab="${lab.id}">Open ${escapeHtml(lab.title)} →</button>` : ""}</div>${acceptance ? `<ul>${acceptance}</ul>` : ""}</div>
       <div class="week-resources">${resources}</div>
       <div class="week-actions"><label class="week-check"><input type="checkbox" data-week="${week.week}" ${weekDone ? "checked" : ""}/> project complete</label></div>
     </article>`;
@@ -635,8 +860,11 @@ function renderPath() {
       selectResource(assignment.resource, { page: segment.page || 0, heading: segment.heading || "", url: segment.url || "", assignmentId: assignment.id });
     });
   });
-  container.querySelectorAll("[data-assignment-mastery]").forEach((select) => {
-    select.addEventListener("change", () => setAssignmentMastery(select.dataset.assignmentMastery, select.value));
+  container.querySelectorAll("[data-open-studio]").forEach((button) => {
+    button.addEventListener("click", () => openUnderstandingStudio(assignments.get(button.dataset.openStudio)));
+  });
+  container.querySelectorAll("[data-open-lab]").forEach((button) => {
+    button.addEventListener("click", () => openMicroworld(button.dataset.openLab));
   });
   container.querySelectorAll("[data-week]").forEach((checkbox) => {
     checkbox.addEventListener("change", () => toggleWeek(checkbox.dataset.week));
@@ -783,14 +1011,14 @@ function renderReaderKeys(resource, assignment = null) {
   const info = roleInfo(resource);
   container.classList.remove("hidden");
   const progress = assignment ? assignmentProgress(assignment) : null;
-  container.innerHTML = `${info.role ? `<span class="role-badge role-${escapeHtml(info.role)}" title="${escapeHtml(info.description)}">${escapeHtml(info.label)}</span>` : ""}<span class="key-label">${assignment ? "Assigned" : "Jump to"}</span>${keys.map((key, index) => `<button class="key-button" data-reader-key="${index}"><span>${escapeHtml(keyMarker(key))}</span> ${escapeHtml(key.label)}</button>`).join("")}${assignment ? `<label class="reader-mastery">Mastery<select data-reader-mastery="${escapeHtml(assignment.id)}">${masteryOptions(progress.level)}</select></label>` : ""}`;
+  container.innerHTML = `${info.role ? `<span class="role-badge role-${escapeHtml(info.role)}" title="${escapeHtml(info.description)}">${escapeHtml(info.label)}</span>` : ""}<span class="key-label">${assignment ? "Assigned" : "Jump to"}</span>${keys.map((key, index) => `<button class="key-button" data-reader-key="${index}"><span>${escapeHtml(keyMarker(key))}</span> ${escapeHtml(key.label)}</button>`).join("")}${assignment ? `<button class="reader-evidence" data-reader-studio="${escapeHtml(assignment.id)}"><span>Evidence</span><strong>${escapeHtml(masteryInfo(progress.level).shortLabel)}</strong></button>` : ""}`;
   container.querySelectorAll("[data-reader-key]").forEach((button) => {
     button.addEventListener("click", () => {
       const key = keys[Number(button.dataset.readerKey)];
       selectResource(resource, { page: key.page || 0, heading: key.heading || "", url: key.url || "", assignmentId: assignment?.id || "" });
     });
   });
-  container.querySelector("[data-reader-mastery]")?.addEventListener("change", (event) => setAssignmentMastery(event.target.dataset.readerMastery, event.target.value));
+  container.querySelector("[data-reader-studio]")?.addEventListener("click", () => openUnderstandingStudio(assignment));
 }
 
 async function selectResource(resource, target = {}) {
@@ -870,6 +1098,7 @@ function renderAll() {
   renderPath();
   if (state.view === "library-view") renderLibrary();
   if (state.view === "review-view") renderReview();
+  if (state.view === "labs-view") renderMicroworlds($("#labs-index"));
   if (state.current) {
     const assignment = allAssignments().find((candidate) => candidate.id === state.activeAssignmentId) || null;
     $("#mark-complete").textContent = assignment ? (isAssignmentRead(assignment) ? "Assignment read ✓" : "Mark assignment read") : (isComplete(state.current) ? "Completed ✓" : "Mark complete");
@@ -884,7 +1113,7 @@ async function init() {
   state.items = (await libraryResponse.json()).items;
   state.studyPath = await pathResponse.json();
   await loadCloudProgress();
-  if (migrateLegacyProgress()) saveProgress();
+  if (migrateLegacyProgress() || refreshEvidenceLevels()) saveProgress();
   populateCategories();
   renderAll();
 
@@ -897,8 +1126,25 @@ async function init() {
   $("#mark-complete").addEventListener("click", () => {
     if (!state.current) return;
     const assignment = allAssignments().find((candidate) => candidate.id === state.activeAssignmentId);
-    if (assignment) setAssignmentMastery(assignment.id, isAssignmentRead(assignment) ? 0 : 1);
+    if (assignment) {
+      if (isAssignmentRead(assignment)) openUnderstandingStudio(assignment);
+      else markAssignmentRead(assignment.id);
+    }
     else toggleResource(state.current);
+  });
+  $("#close-studio").addEventListener("click", closeUnderstandingStudio);
+  $("#skip-checkpoint").addEventListener("click", closeUnderstandingStudio);
+  $("#save-evidence").addEventListener("click", saveStudioEvidence);
+  $("#continue-next").addEventListener("click", continueFromStudio);
+  $("#open-studio-source").addEventListener("click", () => {
+    const assignment = studioAssignment();
+    closeUnderstandingStudio();
+    if (assignment) openAssignment(assignment);
+  });
+  $("#teach-back").addEventListener("input", updateStudioCounters);
+  $("#fault-reflection").addEventListener("input", updateStudioCounters);
+  $("#understanding-studio").addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) closeUnderstandingStudio();
   });
   $("#reset-progress").addEventListener("click", () => {
     if (!window.confirm("Clear all cloud-synced reading history and completion progress?")) return;
@@ -910,6 +1156,10 @@ async function init() {
     renderAll();
   });
   document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !$("#understanding-studio").classList.contains("hidden")) {
+      closeUnderstandingStudio();
+      return;
+    }
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
       event.preventDefault();
       showView("library-view");

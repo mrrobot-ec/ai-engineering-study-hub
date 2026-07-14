@@ -3,6 +3,7 @@ const STATIC_PATHS = new Set([
   "/",
   "/index.html",
   "/static/app.js",
+  "/static/labs.js",
   "/static/marked.umd.js",
   "/static/marked.LICENSE",
   "/static/styles.css",
@@ -121,7 +122,26 @@ function normalizeProgress(input) {
   for (const [key, progress] of assignmentEntries) {
     if (!progress || typeof progress !== "object" || Array.isArray(progress) || key.length > 3000) continue;
     const level = Math.max(0, Math.min(5, Math.floor(Number(progress.level) || 0)));
-    if (!level) continue;
+    const readAt = progress.readAt ? new Date(progress.readAt) : null;
+    const checkpointStatus = progress.checkpointStatus === "passed" || progress.checkpointStatus === "review"
+      ? progress.checkpointStatus
+      : "";
+    const checkpointAnswers = Array.isArray(progress.checkpointAnswers)
+      ? progress.checkpointAnswers.slice(0, 3).filter((answer) => answer && typeof answer === "object" && !Array.isArray(answer)).map((answer) => ({
+        id: cleanText(answer.id, 80),
+        prompt: cleanText(answer.prompt, 1000),
+        response: cleanText(answer.response, 900),
+        result: answer.result === "passed" || answer.result === "review" ? answer.result : "",
+      }))
+      : [];
+    const failedPrompts = Array.isArray(progress.failedPrompts)
+      ? progress.failedPrompts.slice(0, 3).map((prompt) => cleanText(prompt, 1000)).filter(Boolean)
+      : [];
+    const teachBack = cleanText(progress.teachBack, 2500);
+    const faultReflection = cleanText(progress.faultReflection, 1500);
+    const evidenceVersion = Number(progress.evidenceVersion) >= 1 ? 1 : 0;
+    const hasEvidence = level || (readAt && !Number.isNaN(readAt.getTime())) || checkpointStatus || checkpointAnswers.length || teachBack || faultReflection || progress.faultTested === true;
+    if (!hasEvidence) continue;
     const reviewStep = Math.max(0, Math.min(10, Math.floor(Number(progress.reviewStep) || 0)));
     const nextReview = progress.nextReviewAt ? new Date(progress.nextReviewAt) : null;
     const updated = progress.updatedAt ? new Date(progress.updatedAt) : null;
@@ -130,6 +150,14 @@ function normalizeProgress(input) {
       : [];
     assignments[key] = {
       level,
+      evidenceVersion,
+      readAt: readAt && !Number.isNaN(readAt.getTime()) ? readAt.toISOString() : "",
+      checkpointStatus,
+      checkpointAnswers,
+      failedPrompts,
+      teachBack,
+      faultReflection,
+      faultTested: progress.faultTested === true,
       reviewStep,
       nextReviewAt: nextReview && !Number.isNaN(nextReview.getTime()) ? nextReview.toISOString() : "",
       reviewedAt,
@@ -139,7 +167,7 @@ function normalizeProgress(input) {
 
   const requestedUpdatedAt = new Date(input.updatedAt);
   return {
-    version: 2,
+    version: 3,
     completed,
     completedWeeks,
     opened,
@@ -154,7 +182,7 @@ async function progressApi(request, env) {
       "SELECT payload, updated_at FROM progress_state WHERE id = ?"
     ).bind(1).first();
     if (!row) {
-      return jsonResponse({ version: 2, completed: {}, completedWeeks: {}, opened: {}, assignments: {}, updatedAt: "" });
+      return jsonResponse({ version: 3, completed: {}, completedWeeks: {}, opened: {}, assignments: {}, updatedAt: "" });
     }
     try {
       const payload = JSON.parse(row.payload);
