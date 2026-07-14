@@ -12,7 +12,7 @@ represented only by legal access links and official companion material.
 ## Start here
 
 1. Launch the local [Study Hub](study-hub/README.md) for the 16-week path, searchable
-   library, in-place PDF reader, workspace notes, and browser-local progress tracking:
+   library, in-place PDF reader, study notes, and browser-local progress tracking:
 
 ```bash
 cd ~/Documents/ai-engineering-library
@@ -21,8 +21,8 @@ python3 study-hub/server.py
 
    Then open http://127.0.0.1:8765. The server indexes the existing PDFs without
    copying them into a second site build.
-2. Start with `JOB-ALIGNED-LEARNING-PATH.md` for the 16-week track tailored to the
-   current LangGraph/Kafka/Redis/Postgres/pgvector/Temporal service.
+2. Start with `JOB-ALIGNED-LEARNING-PATH.md` for a vendor-neutral 16-week AI systems
+   track built around independent portfolio projects.
 3. Follow `ROADMAP.md` for the broader sequenced curriculum and portfolio projects.
 4. Use `CAREER-GUIDE-DRAFT.md` for the Meta/Google/frontier-startup/applied-AI role
    comparison, senior-versus-staff expectations, interview rubrics, and a 20-week plan.

@@ -113,13 +113,8 @@
     "note:JOB-ALIGNED-LEARNING-PATH.md": [
       {"label": "Target skill profile", "heading": "The target skill profile"},
       {"label": "Context reference model", "heading": "Context engineering: the reference model"},
-      {"label": "Distributed failure modes", "heading": "Distributed systems: learn through this service's failure modes"},
+      {"label": "Distributed failure modes", "heading": "Distributed systems: learn through concrete failure modes"},
       {"label": "Portfolio evidence", "heading": "Portfolio artifacts that demonstrate senior/staff scope"}
-    ],
-    "note:workspace/agent-context-rearchitecture-design.md": [
-      {"label": "Root causes", "heading": "Structural root causes (all five reduce to these)"},
-      {"label": "Architecture", "heading": "Architecture overview"},
-      {"label": "Testing", "heading": "Testing"}
     ],
     "pdf:papers/context-memory/2025-agentic-context-engineering.pdf": [
       {"label": "ACE architecture", "page": 4},
@@ -130,11 +125,6 @@
       {"label": "Model context", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#model-context"},
       {"label": "Tool context", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#tool-context"},
       {"label": "Life-cycle context", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#life-cycle-context"}
-    ],
-    "note:workspace/LANGGRAPH_ORCHESTRATION.md": [
-      {"label": "Graph state", "heading": "GraphState: The State Container"},
-      {"label": "Primary router", "heading": "main_graph.py: The Primary Router"},
-      {"label": "Multi-turn example", "heading": "Complete Multi-Turn Example"}
     ],
     "external:https://docs.langchain.com/oss/python/langgraph/persistence": [
       {"label": "Why persistence", "url": "https://docs.langchain.com/oss/python/langgraph/persistence#why-use-persistence"},
@@ -371,8 +361,7 @@
         "acceptance": ["Run 30–50 golden conversations", "Produce a per-turn context ledger", "Write a failure report for stale, conflicting, and unauthorized context"]
       },
       "resources": [
-        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start", "assignedKeys": [0, 1]},
-        {"label": "Context rearchitecture design", "kind": "note", "path": "workspace/agent-context-rearchitecture-design.md", "role": "build"},
+        {"label": "AI systems mastery track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start", "assignedKeys": [0, 1]},
         {"label": "Agentic context engineering", "kind": "pdf", "path": "papers/context-memory/2025-agentic-context-engineering.pdf", "role": "deep"},
         {"label": "LangChain context engineering", "kind": "external", "url": "https://docs.langchain.com/oss/python/langchain/context-engineering", "role": "build"}
       ]
@@ -389,8 +378,8 @@
         "acceptance": ["Restart successfully at every checkpoint", "Test one state-schema migration", "Demonstrate interrupt, approval, and replay"]
       },
       "resources": [
-        {"label": "LangGraph orchestration guide", "kind": "note", "path": "workspace/LANGGRAPH_ORCHESTRATION.md", "role": "build"},
         {"label": "LangGraph persistence docs", "kind": "external", "url": "https://docs.langchain.com/oss/python/langgraph/persistence", "role": "start"},
+        {"label": "LangGraph source", "kind": "code", "path": "framework-code/langgraph", "role": "build"},
         {"label": "MemGPT", "kind": "pdf", "path": "papers/context-memory/2023-memgpt.pdf", "role": "deep"},
         {"label": "LongMemEval", "kind": "pdf", "path": "papers/context-memory/2024-longmemeval.pdf", "role": "frontier"}
       ]
@@ -613,7 +602,7 @@
         "acceptance": ["Capture end-to-end traces", "Pass golden and failure-path tests", "Expose cost, latency, quality, and rollout controls"]
       },
       "resources": [
-        {"label": "Job-aligned track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start", "assignedKeys": [2, 3]},
+        {"label": "AI systems mastery track", "kind": "note", "path": "JOB-ALIGNED-LEARNING-PATH.md", "role": "start", "assignedKeys": [2, 3]},
         {"label": "Production MLOps guide", "kind": "pdf", "path": "guides/production/2021-google-practitioners-guide-to-mlops.pdf", "role": "build"},
         {"label": "NIST GenAI profile", "kind": "pdf", "path": "papers/industry-career/2024-nist-ai-600-1-generative-ai-profile.pdf", "role": "reference"}
       ]

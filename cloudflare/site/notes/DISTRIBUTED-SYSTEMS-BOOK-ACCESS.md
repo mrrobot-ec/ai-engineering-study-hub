@@ -19,7 +19,7 @@ after the personalized PDF arrives, it can be placed in `books/` and added to th
 catalog. The official figures and Python examples are already stored in
 `companion-code/distributed-systems-4e/` from the author's download.
 
-Suggested chapters for this service: architectures and processes; communication;
+Suggested chapters for this track: architectures and processes; communication;
 coordination; consistency and replication; fault tolerance; and distributed security.
 Run the Python examples instead of reading every boxed case study.
 
@@ -46,4 +46,3 @@ data-system practice.
 The ten local papers in `papers/distributed-systems/` supply the primary-source spine.
 Read them with the implementation and fault-injection exercises in
 `JOB-ALIGNED-LEARNING-PATH.md`.
-

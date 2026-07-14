@@ -32,8 +32,8 @@ official/open.
 ### Introduction to Information Retrieval
 
 Still foundational for indexes, scoring, evaluation, relevance feedback, probabilistic
-retrieval, classification, clustering, and latent semantic indexing. For the current
-job, prioritize chapters 4, 6–8, 11–12, and 18. Pair it with modern dense retrieval,
+retrieval, classification, clustering, and latent semantic indexing. For this learning
+path, prioritize chapters 4, 6–8, 11–12, and 18. Pair it with modern dense retrieval,
 reranking, and RAG papers already in `papers/rag-retrieval/`.
 
 ### Recommender Systems: The Textbook
@@ -48,4 +48,3 @@ The modern bridge is now local in `papers/recommender-systems/`, ordered in
 `JOB-ALIGNED-LEARNING-PATH.md`. Google's official course provides the cleanest web
 overview of candidate generation, scoring, and reranking:
 https://developers.google.com/machine-learning/recommendation.
-

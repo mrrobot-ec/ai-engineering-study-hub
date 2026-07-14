@@ -15,11 +15,11 @@ Everything below is sequenced to build exactly those four.
 
 ---
 
-## Job-aligned fast path for `series-agent-service`
+## Practical AI systems fast path
 
 Before following the full foundation-to-frontier sequence, use
-`JOB-ALIGNED-LEARNING-PATH.md`. It maps the current codebase to a 16-week execution
-track across:
+`JOB-ALIGNED-LEARNING-PATH.md`. It provides a vendor-neutral 16-week execution track
+based on standalone portfolio projects across:
 
 - LangGraph checkpointing, replay, interrupts, subgraphs, and safe side effects;
 - model, tool, thread, domain, retrieval, and cache context boundaries;
@@ -197,7 +197,7 @@ Hands-on: reproduce a small GRPO run with verl or TRL; read vLLM/SGLang source; 
 
 ### Distributed application overlay
 
-Model serving is only one distributed system. For the service around it, read the ten
+Model serving is only one distributed system. For the surrounding application, read the ten
 papers in `papers/distributed-systems/` in the order given by
 `JOB-ALIGNED-LEARNING-PATH.md`. Then run crash/retry/rebalance tests against Kafka,
 Postgres, Redis, LangGraph persistence, and Temporal. The mastery criterion is not

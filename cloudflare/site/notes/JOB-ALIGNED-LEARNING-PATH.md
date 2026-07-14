@@ -1,11 +1,11 @@
-# Job-Aligned AI Systems Mastery Track
+# AI Systems Mastery Track
 
-Snapshot: 2026-07-13. This track is tailored to the current
-`series-agent-service` codebase, not to a generic "AI engineer" title. The service
-already combines LangGraph, Pydantic AI, several model providers, Kafka, Redis,
-Postgres/pgvector, Temporal, FastAPI, Cloud Run, PostHog, and a typed chat-artifact
-context architecture. The highest-return path is therefore to master the invariants
-under those tools and then prove them through reliability and evaluation work.
+Snapshot: 2026-07-13. This is a personal, vendor-neutral track for becoming a
+production AI systems engineer. It uses representative technologies—LangGraph,
+Pydantic AI, model APIs, Kafka, Redis, Postgres/pgvector, Temporal, FastAPI, and cloud
+runtimes through standalone projects.
+The goal is to master durable engineering invariants and prove them through independent
+portfolio projects, reliability work, and evaluation.
 
 ## The target skill profile
 
@@ -28,12 +28,12 @@ failure models, state boundaries, and evaluation methods are durable.
 
 ## What each agent framework is for
 
-| Tool | Abstraction | Learn deeply | Use in this job | Avoid |
+| Tool | Abstraction | Learn deeply | Best use in the track | Avoid |
 |---|---|---|---|---|
-| **LangGraph** | Low-level stateful orchestration runtime | Typed state and reducers, nodes/edges, subgraphs, checkpoints, threads, interrupts, pending writes, replay/time travel, durable execution | Primary reference because the service already models multi-turn workflows and handoffs as graphs | Hiding non-idempotent side effects inside retryable nodes |
+| **LangGraph** | Low-level stateful orchestration runtime | Typed state and reducers, nodes/edges, subgraphs, checkpoints, threads, interrupts, pending writes, replay/time travel, durable execution | Primary reference for stateful multi-turn workflows, handoffs, replay, and recovery | Hiding non-idempotent side effects inside retryable nodes |
 | **LangChain agents** | Higher-level agent loop and middleware built on LangGraph | Model/tool/lifecycle context, state/store/runtime, middleware, dynamic tool and prompt selection, summarization | Reuse high-level middleware where it removes boilerplate without obscuring state | Adopting a chain merely because an integration exists |
 | **Google ADK** | Code-first agent development kit | Sessions, memory, artifacts, callbacks, evaluation, tool/MCP integration, deployment, multi-agent composition | Build one comparison implementation; useful for Google/Cloud Run and A2A/MCP literacy | Rewriting the production graph just to gain framework familiarity |
-| **Pydantic AI** | Typed Python agent and evaluation layer | Dependency injection, tool schemas, structured outputs, validation, retries, usage limits, evals | Strengthen boundaries already present in the service and make agent behavior testable | Treating type validity as task correctness |
+| **Pydantic AI** | Typed Python agent and evaluation layer | Dependency injection, tool schemas, structured outputs, validation, retries, usage limits, evals | Build explicit typed boundaries and make agent behavior testable | Treating type validity as task correctness |
 | **OpenAI Agents SDK** | Small set of agent, handoff, guardrail, session, and tracing primitives | Handoffs versus agents-as-tools, lifecycle hooks, guardrails, sessions, tracing | Learn a second compact runtime and portable tracing model | Binding domain state directly to one provider's transcript format |
 
 Official references:
@@ -71,7 +71,7 @@ latency, and accidental complexity—not four demo apps.
 
 Treat "memory" as several different storage and selection problems:
 
-| Layer | Lifetime | Examples in this service | Required properties |
+| Layer | Lifetime | Generic examples | Required properties |
 |---|---|---|---|
 | Model context | One model call | system instructions, selected transcript, tool schemas, retrieved snippets | token budget, ordering, provenance, injection resistance |
 | Thread/workflow state | One conversation or run | LangGraph state, handoff state, pending approval, checkpoint | resumability, schema versioning, deterministic reducers |
@@ -93,10 +93,9 @@ For every context component, document:
 9. trace fields and quality metric;
 10. deletion and retention behavior.
 
-### Context work that maps directly to this repository
+### Standalone context-control project
 
-The existing chat-artifact rearchitecture is the right kind of problem to go deep on.
-Turn it into a measured system:
+Build a small context-control system as a standalone portfolio project:
 
 - define a canonical typed artifact envelope and schema versions;
 - keep raw artifacts addressable even when summaries are in the prompt;
@@ -112,7 +111,7 @@ Build a **context budget ledger** in traces. Each model call should expose secti
 source, trust level, tokens, age, selection reason, cacheability, and redaction result.
 That one artifact makes context behavior debuggable instead of mystical.
 
-## Distributed systems: learn through this service's failure modes
+## Distributed systems: learn through concrete failure modes
 
 | Component | Concepts to master | Production exercise |
 |---|---|---|
@@ -143,7 +142,8 @@ and reconciliation. Never infer it from a queue setting alone.
 10. `papers/distributed-systems/2025-temporal-durable-execution.pdf`
 
 For each paper, write a one-page note with the contract, fault model, invariants,
-mechanism, trade-offs, operational failure modes, and one connection to the service.
+mechanism, trade-offs, operational failure modes, and one connection to a standalone
+project you can implement and test.
 Use MIT 6.5840 as the lab spine: https://pdos.csail.mit.edu/6.824/.
 
 ## Recommender systems: from signals to a production loop
@@ -238,7 +238,7 @@ framework tutorials.
 ## Books: the compact paid/free shelf
 
 Do not try to read ten commercial systems books cover to cover. The highest-value
-sequence for this job is:
+sequence for this track is:
 
 1. **Distributed Systems, 4th edition**, van Steen and Tanenbaum — free personalized
    digital copy; access instructions in `DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md`.
@@ -255,4 +255,3 @@ Use the free Google SRE books (https://sre.google/books/) and *Software Engineer
 Google* (https://abseil.io/resources/swe-book) for production and organizational
 practice. Legal access details are separated from downloads so the library never
 confuses a public upload with an authorized one.
-

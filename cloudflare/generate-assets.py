@@ -130,13 +130,6 @@ def main() -> None:
     )
 
     study_path = module.load_study_path()
-    for week in study_path.get("weeks", []):
-        # These notes live in the employer service repository and stay local.
-        week["resources"] = [
-            resource
-            for resource in week.get("resources", [])
-            if not (resource.get("kind") == "note" and resource.get("path", "").startswith("workspace/"))
-        ]
     (OUT / "study-path.json").write_text(
         json.dumps(study_path, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

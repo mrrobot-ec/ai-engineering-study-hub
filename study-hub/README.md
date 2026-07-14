@@ -17,8 +17,8 @@ python3 study-hub/server.py
 Open http://127.0.0.1:8765. Stop it with `Ctrl-C`.
 
 The server supports byte ranges so the browser can seek inside large PDFs without
-copying them into a generated site. The workspace-note links assume the library and
-`series-agent-service` remain sibling directories under `~/Documents`.
+copying them into a generated site. Every study note is contained in this personal
+library and all exercises are framed as independent portfolio projects.
 
 ## How to use it
 
@@ -28,7 +28,7 @@ copying them into a generated site. The workspace-note links assume the library 
 3. Open the weekly assignment to jump directly to its specific PDF pages, Markdown
    headings, documentation sections, or source directories. A document can return in
    a later week with a different assigned section.
-4. Build the smallest version in the service or a scratch project.
+4. Build the smallest version as an independent portfolio project.
 5. Inject a failure and measure the result.
 6. Set mastery honestly: read, understand, explain, implement, or debug. Mark the
    project complete only after meeting its acceptance criteria and writing the trade-off.
@@ -54,5 +54,5 @@ placed in a separate MkDocs site without changing this reader.
 ## Safe local scope
 
 The server exposes only PDFs under `books/`, `guides/`, and `papers/`, plus an explicit
-allowlist of study notes and two workspace design documents. It does not expose the
-framework clones, credentials, databases, or arbitrary filesystem paths.
+allowlist of study notes. It does not expose framework clones, credentials, databases,
+or arbitrary filesystem paths.

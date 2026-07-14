@@ -168,25 +168,11 @@
       },
       {
         "label": "Distributed failure modes",
-        "heading": "Distributed systems: learn through this service's failure modes"
+        "heading": "Distributed systems: learn through concrete failure modes"
       },
       {
         "label": "Portfolio evidence",
         "heading": "Portfolio artifacts that demonstrate senior/staff scope"
-      }
-    ],
-    "note:workspace/agent-context-rearchitecture-design.md": [
-      {
-        "label": "Root causes",
-        "heading": "Structural root causes (all five reduce to these)"
-      },
-      {
-        "label": "Architecture",
-        "heading": "Architecture overview"
-      },
-      {
-        "label": "Testing",
-        "heading": "Testing"
       }
     ],
     "pdf:papers/context-memory/2025-agentic-context-engineering.pdf": [
@@ -215,20 +201,6 @@
       {
         "label": "Life-cycle context",
         "url": "https://docs.langchain.com/oss/python/langchain/context-engineering#life-cycle-context"
-      }
-    ],
-    "note:workspace/LANGGRAPH_ORCHESTRATION.md": [
-      {
-        "label": "Graph state",
-        "heading": "GraphState: The State Container"
-      },
-      {
-        "label": "Primary router",
-        "heading": "main_graph.py: The Primary Router"
-      },
-      {
-        "label": "Multi-turn example",
-        "heading": "Complete Multi-Turn Example"
       }
     ],
     "external:https://docs.langchain.com/oss/python/langgraph/persistence": [
@@ -864,7 +836,7 @@
       },
       "resources": [
         {
-          "label": "Job-aligned track",
+          "label": "AI systems mastery track",
           "kind": "note",
           "path": "JOB-ALIGNED-LEARNING-PATH.md",
           "role": "start",
@@ -908,6 +880,12 @@
           "kind": "external",
           "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
           "role": "start"
+        },
+        {
+          "label": "LangGraph source",
+          "kind": "code",
+          "path": "framework-code/langgraph",
+          "role": "build"
         },
         {
           "label": "MemGPT",
@@ -1391,7 +1369,7 @@
       },
       "resources": [
         {
-          "label": "Job-aligned track",
+          "label": "AI systems mastery track",
           "kind": "note",
           "path": "JOB-ALIGNED-LEARNING-PATH.md",
           "role": "start",

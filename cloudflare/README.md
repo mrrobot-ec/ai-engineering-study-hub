@@ -22,8 +22,8 @@ python3 cloudflare/generate-assets.py
 
 This copies the UI, emits the document metadata and compact page-search indexes, and
 includes only personal library notes. The page index is loaded lazily by the browser
-only after a search begins. The build deliberately omits workspace notes from the
-employer service repository.
+only after a search begins. The build has no dependency on notes outside this personal
+library.
 
 ## One-time Cloudflare setup
 

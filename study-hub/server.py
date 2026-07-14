@@ -24,7 +24,6 @@ STATIC_ROOT = HUB_ROOT / "static"
 PATH_FILE = HUB_ROOT / "study-path.json"
 PAGE_INDEX_FILE = LIBRARY_ROOT / "cloudflare" / "site" / "page-index.json"
 PDF_ROOTS = {"books", "guides", "papers"}
-SERVICE_ROOT = LIBRARY_ROOT.parent / "series" / "series-agent-service"
 NOTE_PATHS = {
     "README.md": LIBRARY_ROOT / "README.md",
     "JOB-ALIGNED-LEARNING-PATH.md": LIBRARY_ROOT / "JOB-ALIGNED-LEARNING-PATH.md",
@@ -34,8 +33,6 @@ NOTE_PATHS = {
     "DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md": LIBRARY_ROOT / "DISTRIBUTED-SYSTEMS-BOOK-ACCESS.md",
     "AI-ENGINEERING-BOOK-ACCESS.md": LIBRARY_ROOT / "AI-ENGINEERING-BOOK-ACCESS.md",
     "SOURCE-POLICY.md": LIBRARY_ROOT / "SOURCE-POLICY.md",
-    "workspace/LANGGRAPH_ORCHESTRATION.md": SERVICE_ROOT / "docs" / "LANGGRAPH_ORCHESTRATION.md",
-    "workspace/agent-context-rearchitecture-design.md": SERVICE_ROOT / "docs" / "superpowers" / "specs" / "2026-06-09-agent-context-rearchitecture-design.md",
 }
 
 
