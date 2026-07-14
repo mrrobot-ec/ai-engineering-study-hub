@@ -411,6 +411,49 @@ function openAssignment(assignment) {
   selectResource(assignment.resource, firstAssignmentTarget(assignment));
 }
 
+function assignmentLabel(assignment) {
+  return assignment?.resource?.label || assignment?.resource?.title || "Lesson";
+}
+
+function returnToLearningPath(assignment) {
+  showView("path-view");
+  if (!assignment) return;
+  window.requestAnimationFrame(() => {
+    const button = [...document.querySelectorAll("[data-open-assignment]")]
+      .find((candidate) => candidate.dataset.openAssignment === assignment.id);
+    button?.closest(".week-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+function renderReaderNavigation(assignment = null) {
+  const container = $("#reader-course-nav");
+  if (!assignment) {
+    container.classList.add("hidden");
+    return;
+  }
+  const assignments = allAssignments();
+  const index = assignments.findIndex((candidate) => candidate.id === assignment.id);
+  if (index < 0) {
+    container.classList.add("hidden");
+    return;
+  }
+  const previous = assignments[index - 1] || null;
+  const next = assignments[index + 1] || null;
+  const previousButton = $("#previous-assignment");
+  const nextButton = $("#next-assignment");
+  container.classList.remove("hidden");
+  $("#assignment-position").textContent = `Week ${assignment.week} · Lesson ${index + 1} of ${assignments.length}`;
+  $("#previous-assignment-label").textContent = previous ? assignmentLabel(previous) : "Start of path";
+  $("#next-assignment-label").textContent = next ? assignmentLabel(next) : "End of path";
+  previousButton.disabled = !previous;
+  nextButton.disabled = !next;
+  previousButton.title = previous ? `Open previous lesson: ${assignmentLabel(previous)}` : "This is the first lesson";
+  nextButton.title = next ? `Open next lesson: ${assignmentLabel(next)}` : "This is the final lesson";
+  previousButton.onclick = previous ? () => openAssignment(previous) : null;
+  nextButton.onclick = next ? () => openAssignment(next) : null;
+  $("#return-to-path").onclick = () => returnToLearningPath(assignment);
+}
+
 function pdfUrl(path) {
   return "/files/" + path.split("/").map(encodeURIComponent).join("/");
 }
@@ -762,6 +805,7 @@ async function selectResource(resource, target = {}) {
   const assignment = allAssignments().find((candidate) => candidate.id === state.activeAssignmentId) || null;
   $("#mark-complete").textContent = assignment ? (isAssignmentRead(assignment) ? "Assignment read ✓" : "Mark assignment read") : (isComplete(resource) ? "Completed ✓" : "Mark complete");
   renderReaderKeys(resource, assignment);
+  renderReaderNavigation(assignment);
   const body = $("#reader-body");
   let url = "";
   state.currentOpenAction = null;
@@ -830,6 +874,7 @@ function renderAll() {
     const assignment = allAssignments().find((candidate) => candidate.id === state.activeAssignmentId) || null;
     $("#mark-complete").textContent = assignment ? (isAssignmentRead(assignment) ? "Assignment read ✓" : "Mark assignment read") : (isComplete(state.current) ? "Completed ✓" : "Mark complete");
     renderReaderKeys(state.current, assignment);
+    renderReaderNavigation(assignment);
   }
 }
 
